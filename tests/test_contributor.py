@@ -744,7 +744,7 @@ class ScopeTests(FixtureCase):
 class PublicationTests(FixtureCase):
     def setUp(self):
         super().setUp()
-        self.args = argparse.Namespace(submission=RELATIVE, execute=True, lake="mock-lake", tectonic="mock-tectonic")
+        self.args = argparse.Namespace(submission=RELATIVE, execute=True, lake="mock-lake", tectonic="mock-tectonic", max_open_solution_prs=1)
         self.api = mock.Mock(spec=c.GitHub)
         self.api.request.side_effect = self.fake_request
         self.snapshot = {"items": [], "pulls": [], "fetched_at": c.now(), "upstream": c.UPSTREAM, "deep": True}
@@ -829,6 +829,29 @@ class PublicationTests(FixtureCase):
 
     def test_active_own_pr_enforces_wip_limit(self):
         self.snapshot["pulls"] = [{"body": "another task", "state": "open", "user": {"login": c.OWNER}}]
+        with self.assertRaises(c.GateError):
+            self.publish()
+        self.assert_no_git_mutation()
+        self.assert_no_api_mutation()
+
+    def test_documented_two_pr_exception_allows_exactly_one_existing_pr(self):
+        self.args.max_open_solution_prs = 2
+        self.snapshot["pulls"] = [{"body": "another task", "state": "open", "user": {"login": c.OWNER}}]
+        self.assertEqual(self.publish()["state"], "awaiting_upstream_review")
+
+    def test_two_pr_exception_still_blocks_two_existing_prs(self):
+        self.args.max_open_solution_prs = 2
+        self.snapshot["pulls"] = [
+            {"body": "task one", "state": "open", "user": {"login": c.OWNER}},
+            {"body": "task two", "state": "open", "user": {"login": c.OWNER}},
+        ]
+        with self.assertRaises(c.GateError):
+            self.publish()
+        self.assert_no_git_mutation()
+        self.assert_no_api_mutation()
+
+    def test_invalid_wip_limit_blocks_before_mutation(self):
+        self.args.max_open_solution_prs = 3
         with self.assertRaises(c.GateError):
             self.publish()
         self.assert_no_git_mutation()

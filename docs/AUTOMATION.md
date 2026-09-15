@@ -24,8 +24,9 @@ python scripts/contributor.py --help
 - `validate`：检查完整材料、题面版本、独立评审版本；真正运行 Python、Lean、axiom audit、
   Tectonic 重编译，并比较 PDF 字节。`--static-only` 仅做静态预检，**不够发表**。
 - 在旧Windows CP936控制台上，协调器及它启动的Python验证器强制UTF-8输出，避免Lean类型中 `∀` 等字符导致成功验证被错误报告为编码失败。
-- `publish ... --execute`：有共享 Git-worktree 发布锁、身份检查、最新排重、WIP=1、
-  单题目录 diff 白名单和完整验证后，自动 commit、非 force push、创建上游 PR。
+- `publish ... --execute`：有共享 Git-worktree 发布锁、身份检查、最新排重、默认 WIP=1、
+  单题目录 diff 白名单和完整验证后，自动 commit、非 force push、创建上游 PR。仅一个
+  已通过完整独立审稿的高优先级例外可显式传 `--max-open-solution-prs 2`；该上限绝不超过2。
   遇到自己已创建且有稳定 marker 的 PR，返回已有链接，不再建第二个。
 - `issue draft.json --execute`：仅发布经过协调者审查的实质性问题；稳定 marker 防重；
   7 天内最多 1 条普通 Issue；不替每个解答再开重复 Issue。

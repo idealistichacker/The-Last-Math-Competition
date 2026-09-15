@@ -851,3 +851,7 @@ gh pr merge <actual_pr_number> --repo The-Last-Math-Competition/The-Last-Math-Co
 ### 2026-09-15 已验证权限补充
 
 现有GitHub凭据可以写普通代码与开Issue，但缺少workflow scope，`.github/workflows` push被GitHub拒绝。本轮仅保留工作流文档模板，未启用托管CI；不升级权限、不绕过保护。104项本机工具测试通过101项/跳过3项，不能替代尚未运行的Linux CI。详细状态以运行手册及执行状态为准。
+
+### 2026-09-15：一次性高优先级WIP例外
+
+默认WIP仍为一个开放的上游解答PR。由于#154在#101仍无审稿反馈时已完成全部独立质量门且无重复，协调者可使用显式上限2创建它；这是一次、可审计的例外，不改变“不刷量”、不允许第三个PR，也不绕过上游审查。
