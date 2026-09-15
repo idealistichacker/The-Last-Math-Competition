@@ -1,33 +1,40 @@
-# 执行状态（协调者维护）
+# 执行状态：已恢复自动贡献计划
 
-记录日期：2026-09-15，Asia/Shanghai。此文件区分已验证事实和待办，不是获奖证明。
+更新时间：2026-09-15 15:54（Asia/Shanghai）。
 
-## 已核实
+## 当前控制状态
 
-- 当前账号 idealistichacker；fork admin/push=true；upstream push/admin=false。
-- 工作区从空目录克隆用户fork，新增 upstream remote；原始猜想/metadata未改。
-- 上游基线95acb520，10000猜想；读取时97个open PR、0个merged、2个普通Issue。
-- 没有找到官方“最佳贡献者”评选规则；不得把内部优先级或题目评分伪装成个人官方分。
-- Lean 4.33.1 官方二进制已校验发布者SHA256并实际执行版本查询；Tectonic已下载。
-- 非交互凭据读取可用；修复了 credential helper-selector 等待UI的问题，仅单命令指定manager。
+用户已明确要求低成本模型接管并开始执行。因此：
+- 历史暂停指令已被本次恢复指令取代；`tlmc` heartbeat 将按本计划恢复。
+- 所有新外部写入仍需经过版本、排重、独立审稿、真实构建与权限门槛。
+- 当前上游解答PR WIP 上限为 1；维护 PR #101 优先于新投稿。
 
-## 当前交付
+## 已交付
 
-- `CONTRIBUTOR_AGENT_PLAN.zh-CN.md`：30天、多角色、验收门槛、失败/权限边界的详细计划。
-- `AGENTS.md`：其他Agent必须读的工作契约。
-- `scripts/contributor.py`：当前已实现的发布协调器；完整能力边界见 `docs/AUTOMATION.md`。
-- `docs/CANDIDATES.zh-CN.md`：经过初步数学审计的后续队列，不冒充已完成成果。
-- #116样板：正在独立工作树实现，尚未在此状态记录中认定发布/合并。
+1. `CONTRIBUTOR_AGENT_PLAN.zh-CN.md`：完整30天计划、角色交接、质量gate、预算与权限边界。
+2. `AGENTS.md`：多Agent工作契约。
+3. `scripts/contributor.py`：防重复、版本/评审检查、真实编译及非交互发布协调器。
+4. `docs/AUTOMATION.md`：实际能力与未实现项；`docs/CANDIDATES.zh-CN.md`：后续候选。
+5. `docs/HANDOFF.zh-CN.md`：历史停机和精确恢复入口。
 
-## 验收结果与远端状态
+## 已发生的外部操作
 
-- 工具测试：Windows实跑104个，101通过、3个符号链接测试因本机权限跳过；不能把skip计为pass。Linux CI未运行：现有PAT缺少workflow scope，工作流push被拒绝。
-- 实际Issue：上游 #100 `Clarify attribution, AI disclosure, and first-solution timestamps` 已自动创建；等待维护者回复。
-- 源数据：`git diff upstream/main -- conjectures metadata.csv README.md README.zh-CN.md LICENSE` 为空。
-- 数学样板：作者已经运行Lean与Python；独立复核与PDF发行验收还在进行，尚不声称投稿成功。
-- fork工具分支已推送，fork PR #1已自动创建；将用明确标注local的本机验证后集成，绝不伪装hosted CI。工作流模板未启用；这不算上游数学贡献被采纳。任何未填项仍视为未验证。
+- 上游 Issue #100 已创建，澄清署名、AI披露、首个有效解答时间；最后读取状态 open、0 条评论。
+- fork PR #1 已合并，merge SHA `85c7611a1595bd5712a09dfaf1a29015d28542ff`。这是 fork 工具集成，不是数学采纳。
+- **上游 PR #101 已创建：** `Prove conjecture 00000000116: identity and an explicit nonidentity involution`，head `86c597834807a0f9d6a64d10e0b38168ed2b4c99`，当前 open、未合并。
+- #101 在创建前执行了即时深度排重，未发现同 ID 公开投稿；发布器再次刷新后才开PR。
 
-## 持续执行
+## #116 的真实验证证据
 
-尚未在本状态记录中确认定时任务；必须以Codex automation工具返回结果为准。
-上游合并和官方荣誉由维护者决定，当前账号不能自行完成；不请求用户逐条代操作。
+- 原始题面、blob和审稿hash在发布前均匹配上游 `95acb520ec5607c826b8a997b1ef2fc82d6f7c57`。
+- Python复现、Lean 4.33.1 build、直接源码重放和17个公开定理的空公理依赖审计通过。
+- Tectonic 0.15.0 + `SOURCE_DATE_EPOCH=0` 重建的PDF与提交PDF字节一致。
+- 独立AI审稿Gauss通过，制品内容hash：`6c836e2e6c1d85aca1d6679829efccc18c114658af14f624510f6049306e7b17`。
+- 这是一个明确标注为初级的校准样板；不声称数学新颖性、组织者采纳或获奖。
+
+## 限制与下一步
+
+- 当前账号对上游没有写入/合并权限；PR #101 只能等待维护者审查。
+- PAT 仍缺workflow scope，GitHub Actions/Linus CI均未运行；工作流仅有文档模板。
+- 工具测试104个：101通过、3个Windows symlink权限跳过。
+- 持续流程应先跟进 #101/#100；研究 #154 的错排计数桥梁可并行进行，但 WIP 内不提交第二个上游解答PR。

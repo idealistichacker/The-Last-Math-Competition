@@ -29,7 +29,7 @@ def now():
 
 def run(args, cwd, timeout=300):
     child_env={k:v for k,v in os.environ.items() if k not in {'GH_TOKEN','GITHUB_TOKEN'}}
-    child_env.update({'GIT_TERMINAL_PROMPT':'0','GCM_INTERACTIVE':'Never','GCM_GUI_PROMPT':'0'})
+    child_env.update({'GIT_TERMINAL_PROMPT':'0','GCM_INTERACTIVE':'Never','GCM_GUI_PROMPT':'0','PYTHONUTF8':'1'})
     if 'tectonic' in Path(str(args[0])).stem.lower(): child_env['SOURCE_DATE_EPOCH']='0'
     result = subprocess.run([str(a) for a in args], cwd=cwd, capture_output=True,
                             text=True, encoding='utf-8', errors='replace', timeout=timeout, env=child_env)
@@ -351,6 +351,11 @@ def status(api,number):
             'checks':checks,'note':'No auto-merge: upstream write permission/review authority is not held.'}
 
 def main(argv=None):
+    # This coordinator may report Lean theorem types containing Unicode while Windows
+    # consoles still use CP936; make its own output deterministic and machine-readable.
+    for stream in (sys.stdout, sys.stderr):
+        if hasattr(stream, 'reconfigure'):
+            stream.reconfigure(encoding='utf-8', errors='backslashreplace')
     parser=argparse.ArgumentParser(description=__doc__); parser.add_argument('--repo',default='.')
     sub=parser.add_subparsers(dest='command',required=True)
     sub.add_parser('doctor'); p=sub.add_parser('refresh'); p.add_argument('--deep',action='store_true')
