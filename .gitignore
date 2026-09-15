@@ -1,0 +1,9 @@
+# Local contribution operations (fork-only)
+.local/
+__pycache__/
+*.py[cod]
+.lake/
+*.aux
+*.log
+*.out
+*.toc
