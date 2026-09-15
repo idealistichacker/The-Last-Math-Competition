@@ -55,3 +55,9 @@ Int上的二次多项式系数1,-2,2；最高次系数非零；递归迭代；�
 来源（文档会更新，以固定源码版本及实际构建为准）：
 - https://leanprover-community.github.io/mathlib4_docs/Mathlib/Combinatorics/Derangements/Finite.html
 - https://github.com/leanprover-community/mathlib4/blob/29ea5de9cb981cb62dfa7979aaff0851f50c603a/Mathlib/Combinatorics/Derangements/Finite.lean
+
+## 2026-09-15 并行原型状态
+
+- `00000000154`、`00000000118`、`00000000405` 已各自有本地独立原型；详见执行状态。它们不是已提交或已接受解答。
+- `00000000159` 在本次实时查询中已有上游 PR #13，禁止以“未命中本地候选表”为由重复投稿。
+- 发布槽仍由 #101 占用；在它open期间，后续题目只可研究、审稿和准备材料。

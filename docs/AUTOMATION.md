@@ -63,7 +63,7 @@ solutions/<11-digit-id>/idealistichacker_submission_<UTC yyyymmddHHMMSS>/
   submission.json            # source hash/blob、定理名、形式化范围和局限
   review.json                # 真实独立Agent，明确statement/Lean bridge/PDF检查
   lean4/lean-toolchain        # 精确版本
-  lean4/lakefile.toml
+  lean4/lakefile.toml            # 或 lakefile.lean；两者之一必须存在
   lean4/Main.lean
   lean4/Check.lean            # 每个 advertised theorem 的 #print axioms
 ```

@@ -178,9 +178,11 @@ def check_lean_source(text):
 def validate(root, relative, lake, tectonic, execute=True):
     path=solution_path(root,relative); conjecture_id=path.parent.name
     required=['README.md','main.tex','main.pdf','reproduce.py','submission.json','review.json',
-              'lean4/lean-toolchain','lean4/lakefile.toml','lean4/Main.lean','lean4/Check.lean']
+              'lean4/lean-toolchain','lean4/Main.lean','lean4/Check.lean']
     for name in required:
         if not (path/name).is_file(): raise GateError('Missing rule-3/quality artifact: '+name)
+    if not any((path/'lean4'/name).is_file() for name in ('lakefile.toml','lakefile.lean')):
+        raise GateError('Missing Lean Lake configuration: expected lean4/lakefile.toml or lean4/lakefile.lean')
     manifest=load(path/'submission.json')
     if manifest.get('id')!=conjecture_id or manifest.get('solver')!=OWNER or manifest.get('version')!=1:
         raise GateError('Invalid submission identity/schema')
