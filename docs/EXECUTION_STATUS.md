@@ -38,3 +38,17 @@
 - PAT 仍缺workflow scope，GitHub Actions/Linus CI均未运行；工作流仅有文档模板。
 - 工具测试104个：101通过、3个Windows symlink权限跳过。
 - 持续流程应先跟进 #101/#100；研究 #154 的错排计数桥梁可并行进行，但 WIP 内不提交第二个上游解答PR。
+
+## 并行研究线（2026-09-15）
+
+以下内容均为本地原型，尚未开第二个上游解答PR：
+
+| ID | 真实进展 | 发布状态与边界 |
+|---|---|---|
+| `00000000154` | Mathlib `v4.33.1` 源码构建后，定理 `TLMC154.fin_even_derangements_card_not_prime` 证明 `∀ k, ¬ Prime(card(derangements(Fin(2k))))`；协调者已复跑构建和公理审计。 | 与实际错排排列计数存在正式桥梁；仍缺独立审稿、LaTeX/PDF、正式submission包，且 #101 占用WIP。 |
+| `00000000118` | 固定二次 `x²-2x+2` 的 `f(0)=f(2)=2` 形式化，协调者已复跑 Lean build/audit。 | 原题不要求迭代值互异；但仍缺独立审稿、LaTeX/PDF和正式提交包。 |
+| `00000000405` | 对普通 Kostka 数标准读法，`n=3, λ=(2,1)` 的两个表给出 `4∤6`；协调者已复跑 Python、Lean、审计。 | 题面“spin-pairing”及量词范围有语义歧义，尚不能说解决组织者意图；必须先完成 statement-alignment 审稿。 |
+
+- `00000000159` 已有上游 PR #13，因此未重复分配。
+- 对上述任何题发布前必须重新深度排重和重核上游基线；历史快照不替代发布时核查。
+- 发布协调器现接受 `lean4/lakefile.toml` **或** `lean4/lakefile.lean`，以支持有固定 Mathlib 依赖的合规Lean项目；测试覆盖此分支。

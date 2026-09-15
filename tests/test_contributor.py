@@ -342,9 +342,10 @@ class PathAndHashTests(FixtureCase):
         self.write("data/config.yml", "fixture: true\nvalue: 1\n")
         self.write("data/config.yaml", "fixture: true\nvalue: 2\n")
         self.write_json("data/review.json", {"witness": 1})
+        self.write("lean4/lakefile.lean", "import Lake\nopen Lake DSL\npackage fixture\n")
         text_files = [
             "README.md", "main.tex", "reproduce.py", "submission.json",
-            "lean4/lean-toolchain", "lean4/lakefile.toml", "lean4/Main.lean",
+            "lean4/lean-toolchain", "lean4/lakefile.toml", "lean4/lakefile.lean", "lean4/Main.lean",
             "lean4/Check.lean", ".gitignore", "evidence.txt",
             "data/config.yml", "data/config.yaml", "data/review.json",
         ]
@@ -413,6 +414,12 @@ class StaticValidationTests(FixtureCase):
         with self.assertRaises(c.GateError):
             self.validate(execute=True)
         self.runner.assert_not_called()
+
+    def test_lakefile_lean_is_accepted_as_the_lake_configuration(self):
+        (self.path / "lean4/lakefile.toml").unlink()
+        self.write("lean4/lakefile.lean", "import Lake\nopen Lake DSL\npackage fixture\n")
+        self.resign_review()
+        self.assertFalse(self.validate()["executed"])
 
     def test_changed_source_rejected_even_with_resigned_solution_review(self):
         self.source.write_text("Changed mathematical statement", encoding="utf-8")
