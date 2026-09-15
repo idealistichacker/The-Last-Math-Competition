@@ -1,5 +1,13 @@
 # Agent operating contract
 
+## Execution status (2026-09-15)
+
+The prior stop was explicitly superseded: the user instructed this agent to read
+`docs/HANDOFF.zh-CN.md`, take over, and begin executing the plan. Follow this
+contract and the current `docs/EXECUTION_STATUS.md`; do not repeat historical
+Issue/PR actions. The `tlmc` heartbeat may run only under its documented limits.
+
+
 Read CONTRIBUTOR_AGENT_PLAN.zh-CN.md and docs/AUTOMATION.md before acting.
 This is a contributor's fork, not the organizers' source of policy. Do not send
 these operations files upstream without a specific, justified infrastructure proposal.
