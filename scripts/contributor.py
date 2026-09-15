@@ -279,8 +279,12 @@ def publish(root,args,api):
         hits=duplicate_items(snap['items']+snap['pulls'],cid)
         # Triage/scoring batch PRs are also surfaced for manual-agent inspection, not silently discarded.
         if hits: raise GateError('Possible duplicate submissions/mentions: '+','.join(str(i['number']) for i in hits))
+        limit=getattr(args, 'max_open_solution_prs', 1)
+        if type(limit) is not int or limit not in (1, 2):
+            raise GateError('max_open_solution_prs must be 1 or 2')
         active=[p for p in snap['pulls'] if p['state']=='open' and p['user']['login']==OWNER]
-        if active: raise GateError('WIP limit: one active upstream PR per contributor')
+        if len(active) >= limit:
+            raise GateError(f'WIP limit: {len(active)} active upstream PR(s), maximum {limit}')
         origin=git(root,'remote','get-url','origin').removesuffix('.git')
         upstream=git(root,'remote','get-url','upstream').removesuffix('.git')
         if origin not in {'https://github.com/'+FORK,'git@github.com:'+FORK} or upstream not in {'https://github.com/'+UPSTREAM,'git@github.com:'+UPSTREAM}:
@@ -365,6 +369,9 @@ def main(argv=None):
         p=sub.add_parser(command); p.add_argument('submission'); p.add_argument('--lake',default='lake'); p.add_argument('--tectonic',default='tectonic')
         p.add_argument('--execute',action='store_true',help='Execute publication (validate always executes by default)')
         if command=='validate': p.add_argument('--static-only',action='store_true',help='Not sufficient for publication')
+        if command=='publish':
+            p.add_argument('--max-open-solution-prs',type=int,choices=(1,2),default=1,
+                           help='Default is 1. Use 2 only for a documented high-priority, fully reviewed release exception.')
     p=sub.add_parser('status'); p.add_argument('number',type=int)
     p=sub.add_parser('issue'); p.add_argument('draft'); p.add_argument('--execute',action='store_true')
     p=sub.add_parser('hash'); p.add_argument('submission')
