@@ -21,11 +21,11 @@
 
 ## 验收结果与远端状态
 
-- 工具测试：Windows实跑104个，101通过、3个符号链接测试因本机权限跳过；不能把skip计为pass。Linux CI待运行。
+- 工具测试：Windows实跑104个，101通过、3个符号链接测试因本机权限跳过；不能把skip计为pass。Linux CI未运行：现有PAT缺少workflow scope，工作流push被拒绝。
 - 实际Issue：上游 #100 `Clarify attribution, AI disclosure, and first-solution timestamps` 已自动创建；等待维护者回复。
 - 源数据：`git diff upstream/main -- conjectures metadata.csv README.md README.zh-CN.md LICENSE` 为空。
 - 数学样板：作者已经运行Lean与Python；独立复核与PDF发行验收还在进行，尚不声称投稿成功。
-- fork工具分支将通过真实PR/CI后合并；这不算上游数学贡献被采纳。任何未填项仍视为未验证。
+- fork工具分支已推送，fork PR #1已自动创建；将用明确标注local的本机验证后集成，绝不伪装hosted CI。工作流模板未启用；这不算上游数学贡献被采纳。任何未填项仍视为未验证。
 
 ## 持续执行
 

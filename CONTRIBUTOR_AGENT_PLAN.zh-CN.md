@@ -844,3 +844,7 @@ gh pr merge <actual_pr_number> --repo The-Last-Math-Competition/The-Last-Math-Co
 - 第一份#116是校准流程的简单题，不是战略的全部。后续重点是#154计数桥梁、
   更有意义的形式化引理及高质量审查；不靠堆积恒等式答案争排名。
 - 今日以后请先读执行状态、读取真实远端，再续作；不要照旧日记重发Issue/PR。
+
+### 2026-09-15 已验证权限补充
+
+现有GitHub凭据可以写普通代码与开Issue，但缺少workflow scope，`.github/workflows` push被GitHub拒绝。本轮仅保留工作流文档模板，未启用托管CI；不升级权限、不绕过保护。104项本机工具测试通过101项/跳过3项，不能替代尚未运行的Linux CI。详细状态以运行手册及执行状态为准。

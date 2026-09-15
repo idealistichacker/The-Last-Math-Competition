@@ -81,7 +81,7 @@ solutions/<11-digit-id>/idealistichacker_submission_<UTC yyyymmddHHMMSS>/
    普通 commit/push 更新。不会自动把未审查差异 push 上去。
 5. 当前账户没有上游写权限。因此上游 merge 状态是等待维护者，不是待破解的错误。
    不启用 merge bypass、不调用 admin merge、不伪造审批。
-6. fork 工具 CI 只验证工具测试和 diff；不代表上游数学审查。上游没有 CI 也不能写“CI passed”。
+6. 当前PAT缺少workflow scope，GitHub明确拒绝工作流push；未扩大权限或绕过。工作流仅存 `docs/workflow-templates/contributor-tooling.yml`，未启用、未运行。当前自动本机验证可发布明确标注local的commit status，不冒充GitHub Actions或Linux CI。上游没有CI也不能写“CI passed”。
 7. 默认不产生额外付费 API、云机器或付费 CI 费用；免费额度/权限变化时停止相关执行。
 8. 若配置 Codex heartbeat，它依赖本机 Codex 调度实际运行，不是安装到服务器的 24/7 服务。
    自动化 ID、有效期及最后证据见 `docs/EXECUTION_STATUS.md`；未记录不能宣称已部署。
@@ -105,3 +105,7 @@ solutions/<11-digit-id>/idealistichacker_submission_<UTC yyyymmddHHMMSS>/
 优先修订既有贡献。候选 #118（素数不动点）和 #154（错排数素数分类）只是
 经初步数学审计的备选，不是已完成/已验证解答；#154 的排列计数与递推连接必须形式化。
 30天路线图是计划，不得把未来工作写成当前测试覆盖。
+
+## 托管CI权限缺口
+
+原始含工作流的本地提交37b44c5f保留于 `contribution-ops-workflow-pending`，从未推送成功。可发布分支从原基线重建，只交付非执行模板；不把受拒绝的工作流换路径后运行。本机104测试中3个符号链接测试跳过，Linux仍待验证。后续只有在本身已具备workflow权限时才能启用模板；本任务不自动请求新token或扩大scope。

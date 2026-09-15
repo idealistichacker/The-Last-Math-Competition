@@ -28,9 +28,11 @@ def now():
     return dt.datetime.now(dt.timezone.utc).isoformat()
 
 def run(args, cwd, timeout=300):
+    child_env={k:v for k,v in os.environ.items() if k not in {'GH_TOKEN','GITHUB_TOKEN'}}
+    child_env.update({'GIT_TERMINAL_PROMPT':'0','GCM_INTERACTIVE':'Never','GCM_GUI_PROMPT':'0'})
+    if 'tectonic' in Path(str(args[0])).stem.lower(): child_env['SOURCE_DATE_EPOCH']='0'
     result = subprocess.run([str(a) for a in args], cwd=cwd, capture_output=True,
-                            text=True, encoding='utf-8', errors='replace', timeout=timeout,
-                            env={**os.environ, 'GIT_TERMINAL_PROMPT':'0', 'GCM_INTERACTIVE':'Never', 'GCM_GUI_PROMPT':'0'})
+                            text=True, encoding='utf-8', errors='replace', timeout=timeout, env=child_env)
     if result.returncode:
         raise GateError(f'Command failed ({result.returncode}): {args[0]}\n{result.stdout[-6000:]}\n{result.stderr[-6000:]}')
     return result.stdout.strip()
