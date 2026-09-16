@@ -1,10 +1,10 @@
 # Disproof package for conjecture 00000000154
 
-**Status: local, unreviewed preparation only.** This directory is neither an
-upstream pull request nor an organizer-accepted solution. It claims no award,
-priority, affiliation, or human verification. It includes a real `main.pdf`
-compiled from `main.tex`, but has **no** `review.json`: an independent review
-remains a publication gate.
+**Status: submitted for upstream review; local evidence is complete.** This
+package is a review request, not an organizer-accepted or merged solution. It
+claims no award, priority, affiliation, or human verification. It includes a
+real `main.pdf` compiled from `main.tex` and an internal independent-AI review
+record in `review.json`; neither record is organizer approval or human review.
 
 Prepared with AI assistance for GitHub account `idealistichacker`; no
 institutional affiliation is claimed.
@@ -125,19 +125,19 @@ Lean 4.33.1 by `lake build`, direct `Main.lean` replay, and `Check.lean`; all
 three exited `0`. The resulting audit is reported to the coordinator and is
 not an independent review.
 
-Before release, a different agent must independently review mathematics, Lean
-correspondence, source-statement alignment, reproducibility, and the compiled
-PDF. The release coordinator must create a truthful `review.json`, reproducibly
-rebuild and compare `main.pdf`, refresh upstream source and duplicate checks
-immediately before publication, and obey the one-active-
-upstream-solution-PR limit. Local verification never implies organizer
-acceptance.
+An independent agent reviewed mathematics, Lean correspondence, source-statement
+alignment, reproducibility, and the compiled PDF; its bound attestation is
+`review.json`. The coordinator also rebuilt and compared `main.pdf` and refreshed
+the source and duplicate snapshot before submitting this package. Any future
+revision must repeat those checks and receive a new independent review. Local
+verification and internal AI review never imply organizer acceptance.
 
 
 ## PDF build record
 
 The coordinator compiled `main.tex` with **Tectonic 0.15.0** and
 `SOURCE_DATE_EPOCH=0`, producing `main.pdf` with SHA-256
-`6b8a63cb4e5c22cf7ef4361fac6ae5d84682784d5ff931479c98c4eda025680c`.
-The two rendered pages were visually inspected. This verifies the local artifact
-only; independent review and organizer acceptance remain absent.
+`6fa8d649a91b3dd947d493ec1e6c50b555a92b1d8a3fb2f589c3548fe92576ec`.
+The two rendered pages were visually inspected. An internal independent-AI review
+record is present; organizer approval, merge, acceptance, ranking, award, and
+human verification remain unasserted.

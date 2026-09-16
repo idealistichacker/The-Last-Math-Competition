@@ -1,8 +1,8 @@
 {
   "version": 1,
   "verdict": "pass",
-  "reviewer": "Independent final reviewer / 01a0a45a-d6e6-7d83-8370-5a5d574db08b",
-  "checked_at": "2026-09-15T10:49:55.226Z",
+  "reviewer": "Independent post-status-correction reviewer / 6899c65c-9bb5-47f7-aaa0-73553ce2e810",
+  "checked_at": "2026-09-16T03:41:36.468Z",
   "checks": {
     "statement_alignment": true,
     "mathematics": true,
@@ -10,15 +10,15 @@
     "reproduction": true,
     "pdf_visual": true
   },
-  "content_sha256": "973f09b6841eae85b6615e9969891fddae02c9688d71c2e089601552aef21068",
+  "content_sha256": "38db3c797a92a2b9933f5ebbfb88865e8a44a07e54036653bc94e6fae3ca1643",
   "notes": [
-    "Short renewed independent review of only this final package. No Git or GitHub write was performed.",
-    "Current source files lean4/Main.lean, main.tex, and reproduce.py do not end with an extra blank line. Current source, manifest, and the seven advertised Check.lean theorem audits remain aligned with the package statement.",
-    "Ran exactly: `python .\\reproduce.py --repo D:\\AStudy\\开源杂\\LastMathC\\.local\\worktrees\\00000000154 --lake D:\\AStudy\\开源杂\\LastMathC\\.local\\tools\\lean-4.33.1-windows\\bin\\lake.exe --skip-update`. Exit 0: frozen organizer commit/blob/SHA-256 passed; Lean 4.33.1 and pinned Mathlib 0df444a360eaa60ab8c11dca51a86af692955474 passed; lake build completed 963 jobs; Main.lean and Check.lean replayed with warnings as errors.",
-    "Statement, mathematics, and bridge remain valid: all even derangement cardinalities are proved non-prime, then the exact Even-and-prime index set is proved empty and not Set.Infinite. The proof separates D_0 and D_2 and uses the recurrence factorization for larger even indices. Mathlib card_derangements_fin_eq_numDerangements bridges actual fixed-point-free permutations derangements (Fin n), and the parenthetical source parity observation remains scope-only.",
-    "Axiom output for the seven advertised theorems matched expectation and contained no sorryAx. The three recurrence/positivity theorems use [propext, Quot.sound]; the actual-cardinality, all-even, empty-set, and non-infinite theorems use [propext, Classical.choice, Quot.sound]. This is a disclosed standard-axiom footprint, not a zero-axiom claim.",
-    "PDF/PNG review: current main.pdf SHA-256 is 6b8a63cb4e5c22cf7ef4361fac6ae5d84682784d5ff931479c98c4eda025680c, matching submission.json. Inspected D:\\AStudy\\开源杂\\LastMathC\\.local\\pdf-review\\154\\page-1.png and page-2.png: two readable letter pages, correct source/bridge/status information, equations and pagination, with no clipping, overlap, or visible rendering defect.",
-    "Current content hash was computed with: `python D:\\AStudy\\开源杂\\LastMathC\\scripts\\contributor.py --repo D:\\AStudy\\开源杂\\LastMathC\\.local\\worktrees\\00000000154 hash D:\\AStudy\\开源杂\\LastMathC\\.local\\worktrees\\00000000154\\solutions\\00000000154\\idealistichacker_submission_20260915083821`; result 973f09b6841eae85b6615e9969891fddae02c9688d71c2e089601552aef21068. The pre-existing review hash already matched this current hash when checked; this file is replaced to record the fresh requested rerun.",
-    "Limitation: internal independent AI review only; not organizer approval, upstream publication, merge, acceptance, ranking, award, or human review."
+    "Independent post-status-correction review. README.md, main.tex, and submission.json describe a submitted upstream-review request and local/internal evidence only; they expressly disclaim organizer approval, human verification, merge, acceptance, ranking, and award. The internal AI review is not upstream recognition.",
+    "Read the exact English and Chinese frozen statement for 00000000154. The reproduction's local Git object check passed for commit 95acb520ec5607c826b8a997b1ef2fc82d6f7c57 and blob 5d2fb2e814a4c521d2ace36034863cc8ec6fe836. The frozen LF blob payload SHA-256 is 694c389d34ad78b41caae8ad4e1f414fa0541e6b19b81aeab432466039dc87c1; the Windows checkout's CRLF bytes normalize to that same payload.",
+    "Mathematics and statement alignment pass. The proof separately handles D_0 = 1, D_2 = 1, and every even n >= 4 via D_n = (n - 1)(D_(n-1) + D_(n-2)), whose factors are both greater than one. The contextual parity parenthesis is not used as an additional premise or claimed as a new conclusion.",
+    "Lean bridge pass. Main.lean uses Mathlib's actual derangements (Fin n) subtype, bridges its Fintype.card through card_derangements_fin_eq_numDerangements, proves all even cardinalities non-prime, then proves the exact Even-and-Prime index set empty and not Set.Infinite; it is not a hard-coded Boolean decide result.",
+    "Executed exactly: python reproduce.py --repo D:\\AStudy\\开源杂\\LastMathC\\.local\\worktrees\\00000000154 --lake D:\\AStudy\\开源杂\\LastMathC\\.local\\tools\\lean-4.33.1-windows\\bin\\lake.exe --skip-update. It exited 0: static/source checks, Lean 4.33.1 and pinned Mathlib 0df444a360eaa60ab8c11dca51a86af692955474, Lake build (963 jobs), direct Main.lean replay, and Check.lean replay with warnings-as-errors all passed.",
+    "Axiom audit pass. Check.lean printed all seven advertised theorem dependencies and no sorryAx: recurrence results use [propext, Quot.sound]; actual-cardinality and set-bridge results use [propext, Classical.choice, Quot.sound]. No custom axiom, sorry, admit, native_decide, or unsafe construct is advertised or detected by the reproducer preflight.",
+    "PDF visual pass. main.pdf SHA-256 is 6fa8d649a91b3dd947d493ec1e6c50b555a92b1d8a3fb2f589c3548fe92576ec, matching submission.json. Inspected the current two-page renders D:\\AStudy\\开源杂\\LastMathC\\.local\\pdf-review\\154\\page-1.png and page-2.png, produced with the current PDF timestamp: both are legible and show no clipping, overlap, or status-boundary overclaim.",
+    "This fresh content_sha256 was calculated after the final README PDF-SHA correction by scripts/contributor.py hash; review.json is excluded from that defined content hash."
   ]
 }
