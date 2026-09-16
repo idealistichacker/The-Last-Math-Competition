@@ -23,7 +23,7 @@
 - fork PR #1 已合并，merge SHA `85c7611a1595bd5712a09dfaf1a29015d28542ff`。这是 fork 工具集成，不是数学采纳。
 - **上游 PR #101 已创建：** `Prove conjecture 00000000116: identity and an explicit nonidentity involution`，head `86c597834807a0f9d6a64d10e0b38168ed2b4c99`，当前 open、未合并。
 - **上游 PR #102 已创建：** `Disprove conjecture 00000000154: no even-indexed derangement number is prime`，远端当前 head `5c4b2ce2b5099837f9e42e930940108c35e0c3e4`，open、未合并。它是一次性高优先级WIP例外，不是上游接受。
-- #102 的证明包状态文字已在本地修正为“submitted for upstream review / internal independent-AI review”，并经新审稿、Lean和PDF验证。修订提交 `3fe264456cb6b639dea17d6fe4f64297f966e53b` 尚未推送：两次普通push遇到网络重置/不可达，对账确认远端仍是旧head。该待推送状态不是第三个PR。
+- #102 的证明包状态文字已在本地修正为“submitted for upstream review / internal independent-AI review”，并经新审稿、Lean和PDF验证。修订提交 `3fe264456cb6b639dea17d6fe4f64297f966e53b` 尚未推送：两次普通push及一次后续只读ref检查遇到网络重置/不可达；GitHub API最后确认远端仍是旧head `5c4b2ce2...`。该待推送状态不是第三个PR。
 - #101/#102 都在创建前执行了即时深度排重；#102发布前还重新验证了题面、Lean、PDF与独立审稿哈希。
 
 ## #116 的真实验证证据
@@ -75,7 +75,7 @@
 | ID | 数学情况 | 形式化/题面对齐结论 | 队列状态 |
 |---|---|---|---|
 | `00000000477` | 在明确 positional adjacent-toggle promotion 下，两个二链并有6个线性扩张、轨道长度2和4，故4不整除6。 | REVISE：题面没有定义promotion；当前Lean把真实orbit lcm和`#LE`写成常数。 | 不进入P1，保留BLOCKED记录。 |
-| `00000002617` | 标准 Mathlib `IncidenceAlgebra ℚ (Fin 2)` 与实际 `Ideal.jacobson (⊥)` 定理已在本地完成，证明严格上三角元非零且根非底。 | 数学/标准Lean桥通过；可移植Git依赖与最终独立审稿仍需完成，且WIP满时只本地研究。 | 暂不进入P1，等待该最新依赖状态独立复审。 |
+| `00000002617` | 标准 Mathlib `IncidenceAlgebra ℚ (Fin 2)` 与实际 `Ideal.jacobson (⊥)` 定理已完成，证明严格上三角元非零且根非底；可移植 Git 型 Mathlib manifest、独立复现与独立审稿均通过。 | 固定系数域 `ℚ` 的条件性反例；不泛称所有系数环或未定义半单性结论。 | 可进入**本地P1包装**，但WIP满额，禁止第三个上游PR。 |
 | `00000005397` | \(\sqrt2,1+\sqrt2\) 给出手工的环面平移反例思路。 | 研究级：Lean未形式化无理性与商环面闭对角线/非稠密拓扑桥梁。 | 不进入P1。 |
 
 上述结论是积极的质量筛选，不是失败被隐藏：没有完整定义桥、实际定理或稳定题面解释的原型，禁止进入发布队列。
@@ -92,4 +92,5 @@
 - #102 文档纠正包已重新PDF视觉检查、Lean复现及独立AI审稿，内容哈希为
   `38db3c797a92a2b9933f5ebbfb88865e8a44a07e54036653bc94e6fae3ca1643`。
 - GitHub API深度刷新已修复并可完整读取；Git push网络仍需按运行手册对账后再试。
-- `tlmc` heartbeat 应恢复为ACTIVE，专门对账#102本地提交和远端head；第三个解答PR始终禁止。
+- `tlmc` heartbeat 已恢复为ACTIVE，专门对账#102本地提交和远端head；第三个解答PR始终禁止。
+- #2617 的可移植标准Mathlib桥在2026-09-16独立审稿PASS，可开始本地P1制品包装；在当前WIP下不提交。
