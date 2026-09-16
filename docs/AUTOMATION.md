@@ -20,6 +20,8 @@ python scripts/contributor.py --help
   文件清单按 head SHA 缓存；3000 文件 API 上限导致不完整时阻止发布。
   **不是全文数学相似度搜索，也不保证发现从未公开的研究。** inline review、外部论文和
   不带题号的相关工作仍要由 Scout 检查；不能把未命中当作原创证明。
+  为处理 Windows/TLS 偶发的大响应截断，协调器为**GET**请求设置 `Connection: close`，并仅在
+  Python 明确报告 `IncompleteRead` 时重试一次；HTTP错误与所有POST/PUT仍不重试，外部写入照旧先对账。
 - `hash`：计算被审材料的内容 SHA-256；排除构建缓存和顶层评审记录自身；文本CRLF统一为LF，PDF/二进制按原始字节，支持Windows/Linux复现。
 - `validate`：检查完整材料、题面版本、独立评审版本；真正运行 Python、Lean、axiom audit、
   Tectonic 重编译，并比较 PDF 字节。`--static-only` 仅做静态预检，**不够发表**。
@@ -111,3 +113,14 @@ solutions/<11-digit-id>/idealistichacker_submission_<UTC yyyymmddHHMMSS>/
 ## 托管CI权限缺口
 
 原始含工作流的本地提交37b44c5f保留于 `contribution-ops-workflow-pending`，从未推送成功。可发布分支从原基线重建，只交付非执行模板；不把受拒绝的工作流换路径后运行。本机104测试中3个符号链接测试跳过，Linux仍待验证。后续只有在本身已具备workflow权限时才能启用模板；本任务不自动请求新token或扩大scope。
+
+## 2026-09-16 PR #102 状态修订的网络恢复
+
+本地 `solution/00000000154` 已有提交 `3fe264456cb6b639dea17d6fe4f64297f966e53b`，它只纠正
+#102 包中“未审稿/未提交”的过时陈述，并附带重新编译PDF与新独立审稿。两次普通Git push分别遭遇
+连接重置和无法连接；只读GitHub API随后仍报告PR #102 head为
+`5c4b2ce2b5099837f9e42e930940108c35e0c3e4`。
+
+恢复规则：在未来运行中，先成功读取 `origin/solution/00000000154` ref 和GitHub PR #102 head；
+若两者都仍为旧head且本地仍为 `3fe26445...`，才做一次普通非force push。若任一显示新head，
+只做对账；绝不新建PR、force push或连续网络重试。

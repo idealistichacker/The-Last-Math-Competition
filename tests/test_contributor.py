@@ -11,6 +11,7 @@ import argparse
 from concurrent.futures import ThreadPoolExecutor
 import contextlib
 import hashlib
+import http.client
 import io
 import json
 import os
@@ -224,6 +225,30 @@ class HttpBoundaryTests(OfflineCase):
         self.assertNotIn(secret, str(caught.exception))
         self.assertNotIn("private server message", str(caught.exception))
         self.assertEqual(self.urlopen.call_count, 1)
+
+    def test_incomplete_get_retries_once_then_returns_complete_json(self):
+        first_response = mock.MagicMock()
+        first_response.read.side_effect = http.client.IncompleteRead(b'{"partial":', 7)
+        second_response = mock.MagicMock()
+        second_response.read.return_value = b'{"ok": true}'
+        first_context = mock.MagicMock(); first_context.__enter__.return_value = first_response
+        second_context = mock.MagicMock(); second_context.__enter__.return_value = second_response
+        self.urlopen.side_effect = [first_context, second_context]
+        self.assertEqual(c.GitHub("synthetic-token").request("/user"), {"ok": True})
+        self.assertEqual(self.urlopen.call_count, 2)
+
+    def test_incomplete_get_twice_fails_closed_without_partial_payload(self):
+        contexts = []
+        for _ in range(2):
+            response = mock.MagicMock()
+            response.read.side_effect = http.client.IncompleteRead(b'partial', 1)
+            context = mock.MagicMock(); context.__enter__.return_value = response
+            contexts.append(context)
+        self.urlopen.side_effect = contexts
+        with self.assertRaises(c.GateError) as caught:
+            c.GitHub("synthetic-token").request("/user")
+        self.assertIn("incomplete response twice", str(caught.exception))
+        self.assertEqual(self.urlopen.call_count, 2)
 
     def test_refresh_failure_never_overwrites_complete_snapshot(self):
         api = mock.Mock()

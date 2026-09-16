@@ -5,6 +5,7 @@ import argparse
 import contextlib
 import datetime as dt
 import hashlib
+import http.client
 import json
 import os
 from pathlib import Path
@@ -70,14 +71,24 @@ class GitHub:
         if self.token: headers['Authorization']='Bearer '+self.token
         data=None if payload is None else json.dumps(payload).encode()
         if data is not None: headers['Content-Type']='application/json'
-        req=urllib.request.Request('https://api.github.com'+route,data=data,headers=headers,method=method)
-        try:
-            with urllib.request.urlopen(req,timeout=60) as r:
-                body=r.read()
-                return json.loads(body) if body else {}
-        except urllib.error.HTTPError as e:
-            # Never log request headers, bearer tokens, or potentially sensitive response text.
-            raise GateError(f'GitHub {method} {route.split("?")[0]} returned HTTP {e.code}; no blind mutation retry.') from None
+        # Explicitly close each GitHub request: some Windows/TLS stacks have returned
+        # truncated large API bodies on persistent connections. Only idempotent GETs are
+        # retried, and only after Python reports an incomplete response body; mutations
+        # remain one-shot and are reconciled by their stable marker instead.
+        headers['Connection'] = 'close'
+        attempts = 2 if method == 'GET' else 1
+        for attempt in range(attempts):
+            req=urllib.request.Request('https://api.github.com'+route,data=data,headers=headers,method=method)
+            try:
+                with urllib.request.urlopen(req,timeout=60) as r:
+                    body=r.read()
+                    return json.loads(body) if body else {}
+            except urllib.error.HTTPError as e:
+                # Never log request headers, bearer tokens, or potentially sensitive response text.
+                raise GateError(f'GitHub {method} {route.split("?")[0]} returned HTTP {e.code}; no blind mutation retry.') from None
+            except http.client.IncompleteRead:
+                if attempt + 1 == attempts:
+                    raise GateError(f'GitHub GET {route.split("?")[0]} returned an incomplete response twice; no partial snapshot saved.') from None
     def pages(self,route):
         result=[]
         for page in range(1,101):

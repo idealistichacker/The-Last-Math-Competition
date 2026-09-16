@@ -1,6 +1,6 @@
 # 执行状态：已恢复自动贡献计划
 
-更新时间：2026-09-15 18:54（Asia/Shanghai）。
+更新时间：2026-09-16 11:55（Asia/Shanghai）。
 
 ## 当前控制状态
 
@@ -22,7 +22,8 @@
 - 上游 Issue #100 已创建，澄清署名、AI披露、首个有效解答时间；最后读取状态 open、0 条评论。
 - fork PR #1 已合并，merge SHA `85c7611a1595bd5712a09dfaf1a29015d28542ff`。这是 fork 工具集成，不是数学采纳。
 - **上游 PR #101 已创建：** `Prove conjecture 00000000116: identity and an explicit nonidentity involution`，head `86c597834807a0f9d6a64d10e0b38168ed2b4c99`，当前 open、未合并。
-- **上游 PR #102 已创建：** `Disprove conjecture 00000000154: prime values of derangement numbers`，head `5c4b2ce2b5099837f9e42e930940108c35e0c3e4`，当前 open、未合并。它是一次性高优先级WIP例外，不是上游接受。
+- **上游 PR #102 已创建：** `Disprove conjecture 00000000154: no even-indexed derangement number is prime`，远端当前 head `5c4b2ce2b5099837f9e42e930940108c35e0c3e4`，open、未合并。它是一次性高优先级WIP例外，不是上游接受。
+- #102 的证明包状态文字已在本地修正为“submitted for upstream review / internal independent-AI review”，并经新审稿、Lean和PDF验证。修订提交 `3fe264456cb6b639dea17d6fe4f64297f966e53b` 尚未推送：两次普通push遇到网络重置/不可达，对账确认远端仍是旧head。该待推送状态不是第三个PR。
 - #101/#102 都在创建前执行了即时深度排重；#102发布前还重新验证了题面、Lean、PDF与独立审稿哈希。
 
 ## #116 的真实验证证据
@@ -37,7 +38,7 @@
 
 - 当前账号对上游没有写入/合并权限；PR #101 与 PR #102 均只能等待维护者审查。
 - PAT 仍缺workflow scope，GitHub Actions/Linus CI均未运行；工作流仅有文档模板。
-- 工具测试108个：105通过、3个Windows symlink权限跳过。
+- 工具测试110个：107通过、3个Windows symlink权限跳过；新增覆盖GitHub GET响应截断的一次安全重试，POST仍不重试。
 - 持续流程只跟进 #101/#102/#100；#154已发布，WIP上限已满，任何后续题只能本地研究或修复，不能提交第三个上游解答PR。
 
 ## 并行研究线（2026-09-15）
@@ -74,7 +75,7 @@
 | ID | 数学情况 | 形式化/题面对齐结论 | 队列状态 |
 |---|---|---|---|
 | `00000000477` | 在明确 positional adjacent-toggle promotion 下，两个二链并有6个线性扩张、轨道长度2和4，故4不整除6。 | REVISE：题面没有定义promotion；当前Lean把真实orbit lcm和`#LE`写成常数。 | 不进入P1，保留BLOCKED记录。 |
-| `00000002617` | 两点链的incidence algebra在任意非平凡含幺系数环下存在非零严格上三角根元；即使固定field也反驳零根/半单断言。 | REVISE：现有Lean只有手写三元组和自定义单位判据，未连接标准Mathlib incidence algebra/`Ideal.jacobson`。 | 不进入P1，保留BLOCKED记录。 |
+| `00000002617` | 标准 Mathlib `IncidenceAlgebra ℚ (Fin 2)` 与实际 `Ideal.jacobson (⊥)` 定理已在本地完成，证明严格上三角元非零且根非底。 | 数学/标准Lean桥通过；可移植Git依赖与最终独立审稿仍需完成，且WIP满时只本地研究。 | 暂不进入P1，等待该最新依赖状态独立复审。 |
 | `00000005397` | \(\sqrt2,1+\sqrt2\) 给出手工的环面平移反例思路。 | 研究级：Lean未形式化无理性与商环面闭对角线/非稠密拓扑桥梁。 | 不进入P1。 |
 
 上述结论是积极的质量筛选，不是失败被隐藏：没有完整定义桥、实际定理或稳定题面解释的原型，禁止进入发布队列。
@@ -84,3 +85,11 @@
 原始1个开放PR限制是反刷量的初始默认，不是上游规则。#101仍是简单但合规的已提交解答；#154在完成独立审稿、PDF与最终验证且无重复投稿后，于2026-09-15通过 `--max-open-solution-prs 2` 实际提交为 PR #102。
 
 该例外已用尽：第二个PR后不得再开任何解答PR；仍不影响上游维护者审查/合并权限。
+
+## 2026-09-16 恢复记录
+
+- PR #101、#102 经状态查询均为open，尚无review/comment/check；不得催审。
+- #102 文档纠正包已重新PDF视觉检查、Lean复现及独立AI审稿，内容哈希为
+  `38db3c797a92a2b9933f5ebbfb88865e8a44a07e54036653bc94e6fae3ca1643`。
+- GitHub API深度刷新已修复并可完整读取；Git push网络仍需按运行手册对账后再试。
+- `tlmc` heartbeat 应恢复为ACTIVE，专门对账#102本地提交和远端head；第三个解答PR始终禁止。
