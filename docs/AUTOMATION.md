@@ -108,7 +108,7 @@ solutions/<11-digit-id>/idealistichacker_submission_<UTC yyyymmddHHMMSS>/
 ## 为后续 Agent 提供的实际下一步
 
 先读 `docs/EXECUTION_STATUS.md`，刷新真实 PR/Issue 状态，不按旧报告重复发表。
-优先维护既有上游 PR #101 与 #102；当前两条开放解答 PR 已占满硬上限。#118 仍是本地 P2 候选；#154 已完成排列计数/递推的 Mathlib 连接、PDF、独立审稿与验证，并作为上游 PR #102 等待维护者审查。30天路线图是计划，不得把未来工作写成当前测试覆盖。
+优先维护既有上游 PR #101 与 #102；当前两条开放解答 PR 已占满硬上限。#118 已完成本地 P2 package、PDF、独立审稿与完整验证，但在 fork ref 读取低速超时后尚未 push；#154 已完成排列计数/递推的 Mathlib 连接、PDF、独立审稿与验证，并作为上游 PR #102 等待维护者审查。30天路线图是计划，不得把未来工作写成当前测试覆盖。
 
 ## 托管CI权限缺口
 
