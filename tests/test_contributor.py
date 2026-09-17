@@ -592,6 +592,31 @@ class ExecutionAndAxiomTests(FixtureCase):
         with self.assertRaises(c.GateError):
             self.validate(execute=True)
 
+    def test_offline_exact_dependencies_requires_explicit_manifest_attestation(self):
+        with self.assertRaises(c.GateError):
+            c.validate(self.root, RELATIVE, "mock-lake", "mock-tectonic", execute=True,
+                       offline_exact_dependencies=True)
+        self.runner.assert_not_called()
+
+    def test_offline_exact_dependencies_passes_skip_update_to_package_reproducer(self):
+        self.manifest["reproduction"] = {"offline_exact_dependencies": "Every package checkout is verified against the manifest."}
+        self.write_json("submission.json", self.manifest)
+        self.resign_review()
+        result = c.validate(self.root, RELATIVE, "mock-lake", "mock-tectonic", execute=True,
+                            offline_exact_dependencies=True)
+        self.assertTrue(result["executed"])
+        calls = [list(call.args[0]) for call in self.runner.call_args_list]
+        reproduce = next(args for args in calls if len(args) > 1 and args[1] == "reproduce.py")
+        self.assertIn("--skip-update", reproduce)
+
+    def test_package_reproducer_receives_validation_repository_root(self):
+        result = c.validate(self.root, RELATIVE, "mock-lake", "mock-tectonic", execute=True)
+        self.assertTrue(result["executed"])
+        calls = [list(call.args[0]) for call in self.runner.call_args_list]
+        reproduce = next(args for args in calls if len(args) > 1 and args[1] == "reproduce.py")
+        self.assertIn("--repo", reproduce)
+        self.assertEqual(reproduce[reproduce.index("--repo") + 1], str(self.root.resolve()))
+
     def test_wrong_installed_version_stops_before_reproduction(self):
         self.lean_version = "Lean (version 4.32.0, Release)"
         with self.assertRaises(c.GateError):

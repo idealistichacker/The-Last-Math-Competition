@@ -24,7 +24,9 @@ python scripts/contributor.py --help
   Python 明确报告 `IncompleteRead` 时重试一次；HTTP错误与所有POST/PUT仍不重试，外部写入照旧先对账。
 - `hash`：计算被审材料的内容 SHA-256；排除构建缓存和顶层评审记录自身；文本CRLF统一为LF，PDF/二进制按原始字节，支持Windows/Linux复现。
 - `validate`：检查完整材料、题面版本、独立评审版本；真正运行 Python、Lean、axiom audit、
-  Tectonic 重编译，并比较 PDF 字节。`--static-only` 仅做静态预检，**不够发表**。
+  Tectonic 重编译，并比较 PDF 字节。`--static-only` 仅做静态预检，**不够发表**。默认运行包的在线依赖更新；
+  只有 package manifest 明确声明离线精确依赖核验时，显式 `--offline-exact-dependencies` 才传递
+  `--skip-update` 给 reproducer，且 reproducer 必须逐项核对 Git checkout 的 HEAD 与 origin。
 - 在旧Windows CP936控制台上，协调器及它启动的Python验证器强制UTF-8输出，避免Lean类型中 `∀` 等字符导致成功验证被错误报告为编码失败。
 - `publish ... --execute`：有共享 Git-worktree 发布锁、身份检查、最新排重、默认 WIP=1、
   单题目录 diff 白名单和完整验证后，自动 commit、非 force push、创建上游 PR。仅一个

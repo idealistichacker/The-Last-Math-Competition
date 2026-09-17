@@ -1,11 +1,11 @@
-# 执行状态：已恢复自动贡献计划
+# 执行状态：自动贡献计划进行中（`tlmc` heartbeat 已暂停）
 
-更新时间：2026-09-16 11:55（Asia/Shanghai）。
+更新时间：2026-09-17（Asia/Shanghai；本轮状态核对完成）。
 
 ## 当前控制状态
 
 用户已明确要求低成本模型接管并开始执行。因此：
-- 历史暂停指令已被本次恢复指令取代；`tlmc` heartbeat 将按本计划恢复。
+- 用户于2026-09-17明确要求暂停 `tlmc` heartbeat。实际持久化存储中没有 `tlmc` 配置，视为未部署/已停用；未创建替代调度任务。
 - 所有新外部写入仍需经过版本、排重、独立审稿、真实构建与权限门槛。
 - 当前上游解答PR硬上限为 2；#101 与已通过一次性高优先级例外发布的 #102 均优先维护，禁止第三个上游解答PR。
 
@@ -22,8 +22,7 @@
 - 上游 Issue #100 已创建，澄清署名、AI披露、首个有效解答时间；最后读取状态 open、0 条评论。
 - fork PR #1 已合并，merge SHA `85c7611a1595bd5712a09dfaf1a29015d28542ff`。这是 fork 工具集成，不是数学采纳。
 - **上游 PR #101 已创建：** `Prove conjecture 00000000116: identity and an explicit nonidentity involution`，head `86c597834807a0f9d6a64d10e0b38168ed2b4c99`，当前 open、未合并。
-- **上游 PR #102 已创建：** `Disprove conjecture 00000000154: no even-indexed derangement number is prime`，远端当前 head `5c4b2ce2b5099837f9e42e930940108c35e0c3e4`，open、未合并。它是一次性高优先级WIP例外，不是上游接受。
-- #102 的证明包状态文字已在本地修正为“submitted for upstream review / internal independent-AI review”，并经新审稿、Lean和PDF验证。修订提交 `3fe264456cb6b639dea17d6fe4f64297f966e53b` 尚未推送：两次普通push及一次后续只读ref检查遇到网络重置/不可达；GitHub API最后确认远端仍是旧head `5c4b2ce2...`。该待推送状态不是第三个PR。
+- **上游 PR #102 已创建：** `Disprove conjecture 00000000154: no even-indexed derangement number is prime`，于2026-09-17的只读 API 核对远端 head 为 `3fe264456cb6b639dea17d6fe4f64297f966e53b`，open、未合并。它是一次性高优先级WIP例外，不是上游接受。
 - #101/#102 都在创建前执行了即时深度排重；#102发布前还重新验证了题面、Lean、PDF与独立审稿哈希。
 
 ## #116 的真实验证证据
@@ -38,7 +37,7 @@
 
 - 当前账号对上游没有写入/合并权限；PR #101 与 PR #102 均只能等待维护者审查。
 - PAT 仍缺workflow scope，GitHub Actions/Linus CI均未运行；工作流仅有文档模板。
-- 工具测试110个：107通过、3个Windows symlink权限跳过；新增覆盖GitHub GET响应截断的一次安全重试，POST仍不重试。
+- 工具测试113个：110通过、3个Windows symlink权限跳过；GitHub GET响应截断仅安全重试一次，POST/PUT仍不重试；包内 reproducer 必须显式接收被核验工作树的 `--repo`。
 - 持续流程只跟进 #101/#102/#100；#154已发布，WIP上限已满，任何后续题只能本地研究或修复，不能提交第三个上游解答PR。
 
 ## 并行研究线（2026-09-15）
@@ -49,7 +48,7 @@
 |---|---|---|
 | `00000000154` | 最终包完成并已在二PR高优先级例外下提交为上游 PR #102；Mathlib桥、集合非无限桥、独立审稿、实际PDF、协调器validate均通过。 | 等待维护者审查；不称上游接受，且已达到2个开放解答PR上限。 |
 | `00000000118` | 固定二次 `x²-2x+2` 的全称迭代素链形式化；协调者复跑构建/审计，独立 statement/Lean 审稿通过。 | P2候选：证明过于直接，不是最佳贡献者主打；保留在#154之后，仍缺正式包/PDF/最终审稿。 |
-| `00000000405` | 固定 ordinary-Kostka 参数域反例已补齐“定义—有限子类型基数=2—代入—全称读法反驳”的 Lean 桥接；协调器复现和独立审稿通过。 | 条件P1候选：只能断言通常Kostka标准参数域读法为假；不声称唯一解释或spin不变量结论。仍缺正式不可变提交包/PDF/最终发布审查。 |
+| `00000000405` | 仅有固定 ordinary-Kostka 读法的本地 Lean 原型；2026-09-17独立审计确认题面未定义 spin-pairing、量词和参数域，且既有“独立审稿通过”说法与原型一手证据冲突。 | 高风险 research-only：不通过完整 statement-alignment gate；无正式包/PDF/可核验终审，不能作为下一条“已解原题”投稿候选。 |
 
 - `00000000159` 已有上游 PR #13，因此未重复分配。
 - 对上述任何题发布前必须重新深度排重和重核上游基线；历史快照不替代发布时核查。
@@ -92,5 +91,5 @@
 - #102 文档纠正包已重新PDF视觉检查、Lean复现及独立AI审稿，内容哈希为
   `38db3c797a92a2b9933f5ebbfb88865e8a44a07e54036653bc94e6fae3ca1643`。
 - GitHub API深度刷新已修复并可完整读取；Git push网络仍需按运行手册对账后再试。
-- `tlmc` heartbeat 已恢复为ACTIVE，专门对账#102本地提交和远端head；第三个解答PR始终禁止。
-- #2617 的可移植标准Mathlib桥在2026-09-16独立审稿PASS，可开始本地P1制品包装；在当前WIP下不提交。
+- 用户于2026-09-17要求暂停 `tlmc`。检查 `$CODEX_HOME/automations` 未发现 `tlmc/automation.toml`，故不宣称有运行中监控；未创建新的 heartbeat。第三个解答PR始终禁止。
+- #2617 于2026-09-17完成独立审稿并经协调器完整离线精确依赖验证：9个 Git checkout 的 HEAD/origin、reproducer 构建、warnings-as-errors 重放、四个 theorem 的公理审计和 PDF 字节一致性均通过；本地归档提交为 `b6d11196`。它未 push，且在当前WIP下绝不创建第三个上游解答PR。

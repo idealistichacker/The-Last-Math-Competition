@@ -186,7 +186,7 @@ def check_lean_source(text):
     match=re.search(prohibited,text)
     if match: raise GateError('Prohibited Lean token: '+match.group(0))
 
-def validate(root, relative, lake, tectonic, execute=True):
+def validate(root, relative, lake, tectonic, execute=True, offline_exact_dependencies=False):
     path=solution_path(root,relative); conjecture_id=path.parent.name
     required=['README.md','main.tex','main.pdf','reproduce.py','submission.json','review.json',
               'lean4/lean-toolchain','lean4/Main.lean','lean4/Check.lean']
@@ -198,6 +198,10 @@ def validate(root, relative, lake, tectonic, execute=True):
     if manifest.get('id')!=conjecture_id or manifest.get('solver')!=OWNER or manifest.get('version')!=1:
         raise GateError('Invalid submission identity/schema')
     if manifest.get('verdict') not in {'proved','disproved'}: raise GateError('Verdict must be proved/disproved')
+    if offline_exact_dependencies:
+        reproduction = manifest.get('reproduction')
+        if not isinstance(reproduction, dict) or not isinstance(reproduction.get('offline_exact_dependencies'), str) or not reproduction['offline_exact_dependencies'].strip():
+            raise GateError('Offline exact-dependency validation requires an explicit package reproduction attestation')
     for key in ['title','statement_alignment','formal_scope','limitations']:
         if not isinstance(manifest.get(key),str) or len(manifest[key].strip())<20: raise GateError('Missing substantive '+key)
     source=root/'conjectures'/f'{conjecture_id}.md'
@@ -228,7 +232,10 @@ def validate(root, relative, lake, tectonic, execute=True):
         pin=toolchain.split(':v')[1]
         reported=re.search(r'\bversion\s+([^,\s)]+)',version)
         if not reported or reported.group(1)!=pin: raise GateError('Installed Lean does not match exact release pin')
-        report['reproduce']=run([sys.executable,'reproduce.py','--lake',str(lake_path)],path,timeout=300)
+        reproduce_command=[sys.executable,'reproduce.py','--lake',str(lake_path),'--repo',str(root.resolve())]
+        if offline_exact_dependencies:
+            reproduce_command.append('--skip-update')
+        report['reproduce']=run(reproduce_command,path,timeout=300)
         report['lake_build']=run([lake_path,'build','Main'],path/'lean4',timeout=600)
         report['axioms']=run([lake_path,'env','lean','Check.lean'],path/'lean4',timeout=600)
         allowed={'propext','Classical.choice','Quot.sound'}
@@ -307,7 +314,8 @@ def publish(root,args,api):
         branch=git(root,'branch','--show-current')
         if branch!=f'solution/{cid}': raise GateError('Publish only from solution/<id> branch')
         require_clean_scope(root,relative,'upstream/main')
-        report=validate(root,relative,args.lake,args.tectonic)
+        report=validate(root,relative,args.lake,args.tectonic,
+                        offline_exact_dependencies=getattr(args, 'offline_exact_dependencies', False))
         state=common_dir(root)/'tlmc-publication'/f'{cid}.attempt.json'
         if state.exists(): raise GateError('Previous PR write may be unresolved; reconcile remote marker before any retry')
         git(root,'add','--',relative)
@@ -380,6 +388,7 @@ def main(argv=None):
         p=sub.add_parser(command); p.add_argument('submission'); p.add_argument('--lake',default='lake'); p.add_argument('--tectonic',default='tectonic')
         p.add_argument('--execute',action='store_true',help='Execute publication (validate always executes by default)')
         if command=='validate': p.add_argument('--static-only',action='store_true',help='Not sufficient for publication')
+        p.add_argument('--offline-exact-dependencies',action='store_true',help='Use package-declared offline exact-dependency verification; never a generic network bypass.')
         if command=='publish':
             p.add_argument('--max-open-solution-prs',type=int,choices=(1,2),default=1,
                            help='Default is 1. Use 2 only for a documented high-priority, fully reviewed release exception.')
@@ -391,7 +400,8 @@ def main(argv=None):
         git(root,'rev-parse','--show-toplevel')
         if args.command=='hash': print(content_hash(solution_path(root,args.submission))); return 0
         if args.command=='validate':
-            print(json.dumps(validate(root,args.submission,args.lake,args.tectonic,not args.static_only),ensure_ascii=False,indent=2)); return 0
+            print(json.dumps(validate(root,args.submission,args.lake,args.tectonic,not args.static_only,
+                                      offline_exact_dependencies=args.offline_exact_dependencies),ensure_ascii=False,indent=2)); return 0
         if args.command in {'publish','issue'} and not args.execute:
             raise GateError('External publication requires --execute; credentials not read')
         api=GitHub(token_from_helper(root))
