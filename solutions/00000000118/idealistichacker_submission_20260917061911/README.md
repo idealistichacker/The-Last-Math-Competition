@@ -99,15 +99,14 @@ project, replays `Main.lean` with warnings treated as errors, prints theorem
 axioms, and compiles TeX with `--only-cached`. It neither performs a package
 update nor invokes a network command.
 
-## Remaining publication gates
+## Upstream-review status and future changes
 
-This package is deliberately **not publication-ready** until all of the
-following are independently satisfied:
+An internal independent-AI review is recorded in `review.json`; the release
+coordinator refreshed the organizer source, duplicate state, issue/PR state, and
+explicit parallel-WIP authorization before opening upstream PR #103. The package
+is now submitted for upstream review through that PR. It is not merged or
+accepted, and it does not establish priority, rank, award, affiliation, or
+organizer approval.
 
-1. A different reviewer confirms the mathematics, the `f^i` statement
-   interpretation (especially `M=0`), Lean correspondence, reproduction, and
-   rendered PDF, then records an honest review.
-2. The release coordinator refreshes the organizer source, duplicate state,
-   issue/PR state, and capacity immediately before any publication attempt.
-3. Any future release obeys the existing two-open-solution-PR limit and all
-   contributor policy. Local validity never implies organizer acceptance.
+Any future substantive change to this package must receive a fresh independent
+review, full validation, and a normal non-force update to the same PR branch.

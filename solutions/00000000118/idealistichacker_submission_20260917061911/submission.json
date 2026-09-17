@@ -45,7 +45,7 @@
   },
   "artifacts": {
     "main.pdf": {
-      "sha256": "7be432ba8849de91eef227a30a7b8a912d3b24ffe386858b11cf25f511739c0e",
+      "sha256": "c8104ff8146c53b81bfaf2f3cffd53970ecc1cd8f5dc8e0d8bdb7dbbeefd8062",
       "compiler": "Tectonic 0.15.0 with SOURCE_DATE_EPOCH=0 and --only-cached"
     }
   },
