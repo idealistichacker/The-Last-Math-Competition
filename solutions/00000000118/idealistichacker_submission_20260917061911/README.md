@@ -1,11 +1,11 @@
 # Local proof package for conjecture 00000000118
 
-**Status: locally reviewed package; not submitted upstream.** An internal
-independent-AI review is recorded in `review.json`. This remains a local package:
-it has not been submitted upstream, merged, accepted, or recorded as a solution
+**Status: submitted for upstream review in PR #103; not accepted.** An internal
+independent-AI review is recorded in `review.json`. This package has been submitted
+for maintainer review, but has not been merged, accepted, or recorded as a solution
 by the organizers. It asserts no priority, award, ranking, affiliation, human
 verification, or organizer approval. The internal review is not organizer review
-and does not replace future release-coordinator checks.
+and does not replace future maintainer or release-coordinator checks.
 
 Prepared with AI assistance for the GitHub account `idealistichacker`; no
 institutional affiliation is claimed.

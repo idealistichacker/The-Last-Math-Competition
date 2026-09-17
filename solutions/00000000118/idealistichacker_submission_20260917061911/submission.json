@@ -5,7 +5,7 @@
   "implementation_agent": "local #118 implementation agent",
   "verdict": "proved",
   "title": "a constant prime orbit for an integer quadratic",
-  "local_status": "internally_reviewed_local_package_not_submitted_upstream",
+  "local_status": "submitted_for_upstream_review",
   "source_commit": "95acb520ec5607c826b8a997b1ef2fc82d6f7c57",
   "source_path": "conjectures/00000000118.md",
   "source_git_blob": "697131a7b8dc0a62c539018c7d22612df1e7909a",
@@ -55,7 +55,9 @@
     "scope": "Internal independent AI review only; not organizer review, acceptance, ranking, award, or affiliation."
   },
   "publication": {
-    "submitted_upstream": false,
+    "submitted_upstream": true,
+    "upstream_pull_request": 103,
+    "upstream_url": "https://github.com/The-Last-Math-Competition/The-Last-Math-Competition/pull/103",
     "organizer_acceptance": false,
     "award_or_rank_claimed": false
   },

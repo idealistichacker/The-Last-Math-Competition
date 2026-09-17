@@ -2,7 +2,7 @@
   "version": 1,
   "verdict": "pass",
   "reviewer": "Independent final reviewer / Codex (distinct from local #118 implementation agent)",
-  "checked_at": "2026-09-17T07:29:49Z",
+  "checked_at": "2026-09-17T08:03:09Z",
   "checks": {
     "statement_alignment": true,
     "mathematics": true,
@@ -10,7 +10,7 @@
     "reproduction": true,
     "pdf_visual": true
   },
-  "content_sha256": "980194d2f77b02fad6179dfed05b57ec9bc19ee5890f00fde0c0d7fc290918cc",
+  "content_sha256": "405037cec55e58ee2fb6b4c1e70ebcb7b4ec5fab6ddfcdf494b83aa32050eec0",
   "frozen_source": {
     "git_blob": "697131a7b8dc0a62c539018c7d22612df1e7909a",
     "raw_git_blob_sha256": "91b64b4a671db1806c346247acbc2e0d849c5f73337bc807806c7cd00bbd580a"
@@ -18,7 +18,7 @@
   "evidence": {
     "mathematics": "Independently checked f(x)=x^2-2x+2 has integer coefficients and nonzero quadratic coefficient, with f(0)=2 and f(2)=2; induction gives every positive compositional iterate at 0 equal to the prime 2. The same f works for every natural M, including the package's M=0 reading; no distinctness condition appears in either source language.",
     "lean_bridge": "Independently inspected Main.lean: IntegerQuadratic directly exhibits integer coefficients and a nonzero leading coefficient; NatPrime is the standard divisor characterization with p>=2; IntegerPrime embeds such a natural prime into Int; iterate is recursive compositional iteration. The universal theorem proves HasPrimeChain for every Nat bound without a hard-coded Boolean, native_decide, or unbridged computation.",
-    "reproduction": "Re-ran the package reproducer on 2026-09-17 after the README/manifest status update with the specified local Lean 4.33.1 lake executable and repository. It verified the frozen source object/hash, static source guard, 3-job Lean build, warnings-as-errors replays, all advertised #print axioms, cached-only PDF rebuild, and byte equality. Advertised theorem footprints were empty or [propext], with no sorryAx.",
+    "reproduction": "Re-ran the package reproducer on 2026-09-17 after the PR-status wording update, with the specified local Lean 4.33.1 lake executable and repository. It verified the frozen source object/hash, static source guard, 3-job Lean build, warnings-as-errors replays, all advertised #print axioms, cached-only PDF rebuild, and byte equality. Advertised theorem footprints were empty or [propext], with no sorryAx.",
     "pdf_visual": "Rendered the two-page main.pdf independently at 180 DPI and inspected both pages; text and formulas are readable and there is no visible clipping, overlap, or overflow."
   },
   "limitations": [
@@ -27,9 +27,10 @@
   ],
   "disclaimer": "This is an internal independent AI review record. It is not organizer review, upstream submission, merge, acceptance, rank, award, affiliation, or any guarantee of recognition. Any future release still requires fresh coordinator checks of source, duplicates, PR capacity, and upstream state.",
   "notes": [
-    "Final hash-binding re-review on 2026-09-17 after README and submission.json status updates. The official content hash changed from 0fdc6f06075b03a199e5ee822bc3d80dd321726db43c98efeb4f0140beaa996d to the value recorded here.",
-    "README now accurately identifies an internal independent-AI review in review.json and states that the package is local and not submitted upstream. Its wording does not claim organizer review, acceptance, merge, rank, award, affiliation, or human verification.",
-    "submission.json.review.present is true, its review path is review.json, its scope expressly limits the record to internal independent AI review, and this review.json has verdict pass. Publication fields remain false for submitted_upstream, organizer_acceptance, and award_or_rank_claimed.",
-    "main.tex, main.pdf, Lean sources/configuration, and reproduce.py retain the SHA-256 values audited before the README/manifest status update. The package reproducer was rerun successfully: it rebuilt Lean and the cached-only PDF, repeated the axiom audit, and confirmed byte-identical PDF output. The existing identical PDF remains covered by the prior independent visual inspection."
+    "PR-status hash-binding re-review on 2026-09-17. The official content hash changed from 980194d2f77b02fad6179dfed05b57ec9bc19ee5890f00fde0c0d7fc290918cc to the value recorded here.",
+    "Static package consistency check: README identifies upstream PR #103 as submitted for review and not accepted; submission.json has submitted_upstream=true, upstream_pull_request=103, and https://github.com/The-Last-Math-Competition/The-Last-Math-Competition/pull/103 as its upstream_url. The PR number and URL agree syntactically and identify the same canonical repository/number.",
+    "README and submission.json continue to state organizer_acceptance=false and make no organizer-review, merge, acceptance, rank, award, affiliation, or human-verification claim. submission.json.review.present=true remains consistent with this internal review.json.",
+    "No remote lookup was performed, by instruction. Accordingly, this review binds the locally recorded PR-status wording and internal field consistency only; it does not independently attest the live GitHub state and does not replace a release coordinator refresh.",
+    "main.tex, main.pdf, Lean sources/configuration, and reproduce.py retain their previously audited SHA-256 values. The package reproducer was rerun successfully, including Lean build, warnings-as-errors replay, theorem axiom audit, and cached-only byte-identical PDF rebuild; the unchanged PDF remains covered by the prior independent visual inspection."
   ]
 }
