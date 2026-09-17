@@ -23,6 +23,7 @@
 - fork PR #1 已合并，merge SHA `85c7611a1595bd5712a09dfaf1a29015d28542ff`。这是 fork 工具集成，不是数学采纳。
 - **上游 PR #101 已创建：** `Prove conjecture 00000000116: identity and an explicit nonidentity involution`，head `86c597834807a0f9d6a64d10e0b38168ed2b4c99`，当前 open、未合并。
 - **上游 PR #102 已创建：** `Disprove conjecture 00000000154: no even-indexed derangement number is prime`，于2026-09-17的只读 API 核对远端 head 为 `3fe264456cb6b639dea17d6fe4f64297f966e53b`，open、未合并。它是一次性高优先级WIP例外，不是上游接受。
+- **上游 PR #103 已创建：** `Prove conjecture 00000000118: a constant prime orbit for an integer quadratic`，于2026-09-17创建后状态核对为 open、未合并，head `3d7945d6907b5556856b6f848cb90afe85fc64f6`。它是基于用户明确授权的显式并行WIP=3发布，不是组织者接受。
 - #101/#102 都在创建前执行了即时深度排重；#102发布前还重新验证了题面、Lean、PDF与独立审稿哈希。
 
 ## #116 的真实验证证据
@@ -47,7 +48,7 @@
 | ID | 真实进展 | 发布状态与边界 |
 |---|---|---|
 | `00000000154` | 最终包完成并已在二PR高优先级例外下提交为上游 PR #102；Mathlib桥、集合非无限桥、独立审稿、实际PDF、协调器validate均通过。 | 等待维护者审查；不称上游接受，且已达到2个开放解答PR上限。 |
-| `00000000118` | 固定二次 `x²-2x+2` 的不可变包、实际 PDF、固定 Lean 4.33.1、离线复现、独立 AI 终审及协调器完整验证已完成；fork commit `526ed3cd` 已回读一致。 | 题面未定义迭代记号/`M` 域，包仅采用标准自然数复合迭代（含 `M=0`）、且不要求互异项；数学贡献 P2，不称组织者接受。 | 允许在当前上游规则、实时排重和显式 `--max-open-solution-prs 3` 门槛下申请独立上游 PR；不自动 merge。 |
+| `00000000118` | 固定二次 `x²-2x+2` 的不可变包、实际 PDF、固定 Lean 4.33.1、离线复现、独立 AI 终审及协调器完整验证已完成；PR #103 head `3d7945d6`。 | 题面未定义迭代记号/`M` 域，包仅采用标准自然数复合迭代（含 `M=0`）、且不要求互异项；数学贡献 P2，不称组织者接受。 | 上游 PR #103 open、未合并；不自动 merge。 |
 | `00000000405` | 仅有固定 ordinary-Kostka 读法的本地 Lean 原型；2026-09-17独立审计确认题面未定义 spin-pairing、量词和参数域，且既有“独立审稿通过”说法与原型一手证据冲突。 | 高风险 research-only：不通过完整 statement-alignment gate；无正式包/PDF/可核验终审，不能作为下一条“已解原题”投稿候选。 |
 
 - `00000000159` 已有上游 PR #13，因此未重复分配。
@@ -58,7 +59,7 @@
 
 1. #101 与 #102 是当前两个公开上游解答PR，均由维护者审查。
 2. #154 已实际提交为 #102；第二个PR后禁止新增上游解答PR，直到至少一个不再open并重新检查状态。
-3. #118 已完成本地包、独立终审和完整验证，但仍是低风险 P2；#405 已被2026-09-17审计降级为高风险 research-only，不进入包装队列。
+3. #118 已完成本地包、独立终审和完整验证，并已提交为上游 PR #103；它仍是低风险 P2。#405 已被2026-09-17审计降级为高风险 research-only，不进入包装队列。
 4. 任何“ready”或“submitted”均不代表组织者接受、首次解答或贡献者排名。
 
 ## #405 复审完成（2026-09-15）
@@ -99,7 +100,7 @@
 - 用户已要求暂停 `tlmc` heartbeat。实际检查 `$CODEX_HOME/automations` 时未发现 `tlmc/automation.toml`；没有创建替代调度任务，不能声称监控正在运行。
 - 在 `2026-09-17T03:36:11.837829+00:00` 的历史深度刷新中，PR #101、#102 均为 open、未合并；当时的本地硬上限为2。该历史限制已由用户于同日授权的“符合上游规则的显式并行多PR”策略取代。
 - #2617 的独立审稿记录绑定内容哈希 `24e69c2c756aa6ae467ea061c71e1bd473d3a4636db88bbb334abc3d7ac1a644`；协调器完整离线精确依赖验证已通过。归档提交 `b6d111966715abe2e4d4af8998453bb2fa948d2d` 已在用户 fork 的 `solution/00000002617`；上游发布仍逐条遵循当前规则、排重与显式WIP检查。
-- 协调器修复（安全处理 GitHub GET 截断、离线精确依赖模式、向包内 reproducer 显式传入 `--repo`）及证据更正已本地提交为 `b8c8ecfc2dbadbfb59a946df3e9fb3ea52dd141e`。后续本地修复又将非 force solution push 限为 `120` 秒，超时不发 PR、不重试且释放发布锁；测试现为 `115` 个，`112` 个通过、`3` 个 Windows symlink 权限跳过。
+- 协调器修复（安全处理 GitHub GET 截断、离线精确依赖模式、向包内 reproducer 显式传入 `--repo`）及证据更正已本地提交为 `b8c8ecfc2dbadbfb59a946df3e9fb3ea52dd141e`。后续本地修复又将非 force solution push 限为 `120` 秒，超时不发 PR、不重试且释放发布锁；显式并行WIP参数现要求正整数与用户授权/上游规则核验。测试现为 `116` 个，`113` 个通过、`3` 个 Windows symlink 权限跳过。
 - 2026-09-17 曾对预期的用户 fork 做一次非 force push：Git `remote-https` 在超过三分钟没有握手/进度后被终止；随后 `git ls-remote` 证实该 fork 分支不存在，故没有远端写入。**不得自动重试 push 或进行其他外部写入**；保留本地提交，只有在后续重新核验传输条件后才可尝试一次新的非 force 操作。
 - #405 的 2026-09-17独立只读审计已降级为高风险 research-only：题面术语/量词未定义，既有独立审稿说法存在证据链冲突；不进入投稿队列。
 
@@ -108,5 +109,5 @@
 - 用户明确要求继续解题、推送并允许不违反上游规则的并行多PR后，GitHub API 于 `2026-09-17T07:48:51.026927+00:00` 深度刷新成功：#101、#102 仍为 open、未合并，且 `00000000118` 在该快照中无匹配。身份预检确认 `idealistichacker` 对自己的 fork 有 push 权限、对上游无写/合并权限。
 - `contribution-ops-network-recovery` 已普通非 force push 到用户 fork，远端 ref 回读为 `d8b9217786ecd2f554c0fd5357b223d62eca900c`；未按 GitHub 的提示创建 PR。
 - `solution/00000002617` 已普通非 force push 到用户 fork，远端 ref 回读为 `b6d111966715abe2e4d4af8998453bb2fa948d2d`；未创建 PR。
-- #118 已完成最终本地包：题面 blob `697131a7b8dc0a62c539018c7d22612df1e7909a`、内容哈希 `980194d2f77b02fad6179dfed05b57ec9bc19ee5890f00fde0c0d7fc290918cc`、独立 review、Lean 4.33.1/axiom audit、cached-only PDF 重建和协调器完整 validate 都通过；fork branch `solution/00000000118` 已普通 non-force push 并回读 `526ed3cd5babdc5509ac816dc9c604f56f2ffea3`。
+- #118 已完成最终包：题面 blob `697131a7b8dc0a62c539018c7d22612df1e7909a`、状态修正后内容哈希 `405037cec55e58ee2fb6b4c1e70ebcb7b4ec5fab6ddfcdf494b83aa32050eec0`、独立 review、Lean 4.33.1/axiom audit、cached-only PDF 重建和协调器完整 validate 都通过；fork branch 已普通 non-force 更新至 `3d7945d6907b5556856b6f848cb90afe85fc64f6`，上游 PR #103 的正文也已安全更新并回读。
 - #5397 已新增严格限定的离散环面研究材料于 `.local/research/5397/`，离线 Lean 代数 bridge 与数学证明通过；题面仍未定义离散/连续时间，故维持 research-only。
