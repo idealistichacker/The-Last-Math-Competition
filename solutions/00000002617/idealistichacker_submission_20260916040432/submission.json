@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "id": "00000002617",
+  "solver": "idealistichacker",
+  "implementation_agent": "Volta / 01a0a863-fb91-7ba0-9e03-470a4acfe2a5; package dependency recovery verified by coordinator",
+  "verdict": "disproved",
+  "title": "a rational two-point incidence algebra has nonzero Jacobson radical",
+  "source_commit": "95acb520ec5607c826b8a997b1ef2fc82d6f7c57",
+  "source_git_blob": "e23e80d92bfbf3e0970c427716f7ce3c2f97a39e",
+  "source_sha256": "03ba0f9febb435b53de0c4df73642bbb647b1a0b9eef3f297cedf5263564bc5b",
+  "source_sha256_convention": "SHA-256 of raw frozen Git blob bytes",
+  "statement_alignment": "This package fixes the standard Mathlib object A := IncidenceAlgebra ℚ (Fin 2), where Fin 2 is the two-element chain. It proves actual Ideal.jacobson (⊥ : Ideal A) is not bottom, giving a counterexample to the source zero-radical clause under this explicit conventional field-coefficient interpretation. It does not formalize semisimplicity, an all-coefficient-rings result, or the source Möbius-function sentence.",
+  "formal_scope": "Lean 4.33.1 plus Git-pinned Mathlib commit 0df444a360eaa60ab8c11dca51a86af692955474 proves nonzero offDiagonal, square-zero convolution products, actual Jacobson-radical membership via Ideal.mem_jacobson_iff, and a non-bottom actual Jacobson radical for IncidenceAlgebra ℚ (Fin 2).",
+  "limitations": "A real main.pdf has been compiled and visually checked locally, but no independent review.json exists. This package has not been committed, pushed, submitted upstream, merged, accepted by organizers, or recognized for an award. It requires independent review, source/duplicate refresh, and release-coordinator validation before any future publication; current upstream PR capacity is full.",
+  "ai_disclosure": "AI-assisted research, formalization, package creation, and local reproduction for account idealistichacker. No human mathematical verification or institutional affiliation is claimed.",
+  "theorems": [
+    "TLMC2617.offDiagonal_ne_zero",
+    "TLMC2617.right_mul_offDiagonal_sq_zero",
+    "TLMC2617.offDiagonal_mem_jacobson",
+    "TLMC2617.jacobson_ne_bot"
+  ],
+  "lean": {
+    "toolchain": "leanprover/lean4:v4.33.1",
+    "mathlib_git_url": "https://github.com/leanprover-community/mathlib4.git",
+    "mathlib_resolved_commit": "0df444a360eaa60ab8c11dca51a86af692955474",
+    "new_axioms_declared": false,
+    "expected_axiom_footprint": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ]
+  },
+  "pdf_build": {
+    "status": "built",
+    "engine": "tectonic 0.15.0",
+    "source_date_epoch": 0,
+    "sha256": "9529b2074377d26ceb058c9d96db3b1194b14edc62652d50e8ce5ae83feb8a10",
+    "visual_review": "Coordinator rendered both current pages; no clipping, overlap, or unreadable text observed. Tectonic reported a minor overfull-box warning, but visual inspection found no visible overflow."
+  },
+  "independent_review": {
+    "status": "not_yet_performed",
+    "required": [
+      "mathematics",
+      "Lean statement correspondence",
+      "reproducibility",
+      "PDF visual review"
+    ]
+  },
+  "reproduction": {
+    "entrypoint": "reproduce.py",
+    "required_arguments": [
+      "--lake <Lake executable or command>",
+      "--repo <checkout containing frozen Git blob>"
+    ],
+    "online_mode": "Default mode runs lake update with MATHLIB_NO_CACHE_ON_UPDATE=1, then source-builds and audits.",
+    "offline_exact_dependencies": "--skip-update is permitted only after verify_materialized_packages confirms every Git checkout HEAD and origin equals lake-manifest.json.",
+    "order": [
+      "verify blob type and raw SHA-256",
+      "verify Git manifest type URL revision",
+      "in offline mode verify every materialized Git checkout HEAD and origin",
+      "lake update unless offline exact mode",
+      "lake build",
+      "warning-as-error replay",
+      "advertised theorem axiom prints"
+    ]
+  }
+}

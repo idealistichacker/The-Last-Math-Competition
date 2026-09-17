@@ -1,0 +1,77 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\newtheorem{theorem}{Theorem}
+\title{A Rational Two-Point Counterexample to the Zero-Radical Clause\\for TLMC 00000002617}
+\author{Prepared for the account \texttt{idealistichacker}}
+\date{}
+\begin{document}
+\maketitle
+
+\section*{Frozen statement and scope}
+The organizer source was frozen before this analysis:
+\begin{flushleft}
+\footnotesize
+Source: \texttt{conjectures/00000002617.md}\\
+Commit: \texttt{95acb520ec5607c826b8a997b1ef2fc82d6f7c57}\\
+Git blob: \texttt{e23e80d92bfbf3e0970c427716f7ce3c2f97a39e}\\
+SHA-256: \texttt{03ba0f9febb435b53de0c4df73642bbb647b1a0b9eef3f297cedf5263564bc5b}
+\end{flushleft}
+
+We address only the zero-radical clause at the conventional, fixed instance
+\[
+ A=\operatorname{IncidenceAlgebra}(\mathbb{Q},\operatorname{Fin}\,2),
+ \qquad \operatorname{Fin}\,2=\{0<1\}.
+\]
+This is a finite locally finite chain with rational coefficients. We do not
+make a statement about arbitrary coefficient rings or arbitrary posets, and
+neither define nor use a notion of semisimplicity. The source's Möbius-function
+language is not a proof object in this package.
+
+\section*{Calculation in the actual incidence algebra}
+Let \(e\in A\) take the value \(1\) on the strict interval \((0,1)\)
+and \(0\) elsewhere. This is an actual Mathlib
+\texttt{IncidenceAlgebra} function, not a substitute coordinate algebra.
+The Lean file \texttt{lean4/Main.lean} expands Mathlib's
+\texttt{IncidenceAlgebra.mul\_apply} over all pairs in
+\(\operatorname{Fin}\,2\) and proves
+\[
+ (ye)^2=0 \quad\text{for every }y\in A.
+\]
+It also proves \(e\ne0\).
+
+\section*{Jacobson-radical bridge}
+Mathlib's actual \texttt{Ideal.mem\_jacobson\_iff} characterizes
+membership of \(x\) in the Jacobson radical of an ideal. For each \(y\),
+choose \(z=1-ye\). Since \((ye)^2=0\), its required expression simplifies to
+\[
+ zye+z-1=(ye-(ye)^2)+(1-ye)-1=0.
+\]
+Thus Lean proves
+\[
+ e\in\operatorname{Ideal.jacobson}(\bot:\operatorname{Ideal}\,A).
+\]
+Since \(e\ne0\), it follows that
+\[
+ \operatorname{Ideal.jacobson}(\bot:\operatorname{Ideal}\,A)\ne\bot.
+\]
+Hence the zero-radical clause has a counterexample under the explicitly fixed
+rational two-point interpretation.
+
+\section*{Lean evidence and trust boundary}
+The project pins Lean 4.33.1 and Mathlib Git commit
+\texttt{0df444a360eaa60ab8c11dca51a86af692955474}. \texttt{Check.lean} prints the transitive axiom footprints
+for all advertised theorems. The current proofs use the standard Lean/Mathlib
+principles \texttt{propext}, \texttt{Classical.choice}, and
+\texttt{Quot.sound}; no new axiom, \texttt{sorry}, \texttt{admit},
+\texttt{native\_decide}, or unsafe evaluation is used.
+
+\section*{Status}
+This package includes a PDF compiled from this source with Tectonic~0.15.0 and
+deterministic PDF timestamp metadata. It has no independent review record and
+does not claim organizer approval, merge, acceptance, ranking, award, or human
+verification. Before any future publication, a new independent review, fresh
+upstream duplicate/source checks, and release-coordinator validation are required.
+\end{document}
