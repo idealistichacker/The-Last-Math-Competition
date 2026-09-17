@@ -74,8 +74,8 @@
 | ID | 数学情况 | 形式化/题面对齐结论 | 队列状态 |
 |---|---|---|---|
 | `00000000477` | 在明确 positional adjacent-toggle promotion 下，两个二链并有6个线性扩张、轨道长度2和4，故4不整除6。 | REVISE：题面没有定义promotion；当前Lean把真实orbit lcm和`#LE`写成常数。 | 不进入P1，保留BLOCKED记录。 |
-| `00000002617` | 标准 Mathlib `IncidenceAlgebra ℚ (Fin 2)` 与实际 `Ideal.jacobson (⊥)` 定理已完成，证明严格上三角元非零且根非底；可移植 Git 型 Mathlib manifest、独立复现与独立审稿均通过。 | 固定系数域 `ℚ` 的条件性反例；不泛称所有系数环或未定义半单性结论。 | 可进入**本地P1包装**，但WIP满额，禁止第三个上游PR。 |
-| `00000005397` | \(\sqrt2,1+\sqrt2\) 给出手工的环面平移反例思路。 | 研究级：Lean未形式化无理性与商环面闭对角线/非稠密拓扑桥梁。 | 不进入P1。 |
+| `00000002617` | 标准 Mathlib `IncidenceAlgebra ℚ (Fin 2)` 反例的不可变包、PDF、固定 Git manifest、独立审稿与完整协调器验证均已完成；本地归档为 `b6d11196`。 | 只反驳固定系数域 `ℚ` 的 Jacobson-radical 零断言；不泛称所有系数环、半单性或 Möbius 结论。 | 已完成本地P1归档；WIP满额且 transport 熔断，未 push、禁止第三个上游PR。 |
+| `00000005397` | \(\sqrt2,1+\sqrt2\) 仅在离散 \(n\in\mathbb Z\) 环面平移读法下反驳首个 biconditional；连续 \(t\in\mathbb R\) 流读法下不是反例，题面未定义该关键语义。 | P3：现有 Lean 只覆盖代数骨架，缺真实无理性、商环面/character、非稠密拓扑桥及最终包。 | research-only，不进入P1或发布队列。 |
 
 上述结论是积极的质量筛选，不是失败被隐藏：没有完整定义桥、实际定理或稳定题面解释的原型，禁止进入发布队列。
 

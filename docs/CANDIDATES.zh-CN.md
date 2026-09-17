@@ -71,8 +71,8 @@ Int上的二次多项式系数1,-2,2；最高次系数非零；递归迭代；�
 ### 2026-09-15 探索筛选结果
 
 - `#477`：明确 adjacent-toggle convention 下的反例数学正确，但题面promotion未定义且Lean硬编码orbit/card，**REVISE，不包装**。
-- `#2617`：固定两点链的标准incidence algebra纸面反例强，但现有Lean缺标准`IncidenceAlgebra`/`Ideal.jacobson`桥，**BLOCKED，不包装**。
-- `#5397`：手工反例依赖无理性与环面拓扑，Lean未覆盖，**research only**。
+- `#2617`：固定两点链、系数域 `ℚ` 的标准 Mathlib `IncidenceAlgebra`/`Ideal.jacobson` 桥、不可变包、PDF、独立审稿和完整验证均已完成（本地提交 `b6d11196`）；但两条上游解答 PR 已满且 transport 熔断，**仅本地归档，不 push/不开第三 PR**。
+- `#5397`：\(\sqrt2,1+\sqrt2\) 见证只在未固定的离散时间环面平移解释下成立，连续流解释下不是反例；且 Lean 未覆盖真实无理性与环面拓扑，**P3 / research only**。
 - 审计结果应优先于“找到反例”的数量；目前#154仍是唯一发布就绪的后续候选。
 
 ### 2026-09-16 #2617 标准对象进展
