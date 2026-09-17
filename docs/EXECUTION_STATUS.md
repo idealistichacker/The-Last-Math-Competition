@@ -93,3 +93,12 @@
 - GitHub API深度刷新已修复并可完整读取；Git push网络仍需按运行手册对账后再试。
 - 用户于2026-09-17要求暂停 `tlmc`。检查 `$CODEX_HOME/automations` 未发现 `tlmc/automation.toml`，故不宣称有运行中监控；未创建新的 heartbeat。第三个解答PR始终禁止。
 - #2617 于2026-09-17完成独立审稿并经协调器完整离线精确依赖验证：9个 Git checkout 的 HEAD/origin、reproducer 构建、warnings-as-errors 重放、四个 theorem 的公理审计和 PDF 字节一致性均通过；本地归档提交为 `b6d11196`。它未 push，且在当前WIP下绝不创建第三个上游解答PR。
+
+## 2026-09-17 实时核对与停止点
+
+- 用户已要求暂停 `tlmc` heartbeat。实际检查 `$CODEX_HOME/automations` 时未发现 `tlmc/automation.toml`；没有创建替代调度任务，不能声称监控正在运行。
+- 只读 GitHub API 深度刷新在 `2026-09-17T03:36:11.837829+00:00` 成功：上游 PR #101 为 open、未合并，head `86c597834807a0f9d6a64d10e0b38168ed2b4c99`；PR #102 为 open、未合并，head `3fe264456cb6b639dea17d6fe4f64297f966e53b`。两条开放解答 PR 继续占满硬上限。
+- #2617 的本地独立审稿记录绑定内容哈希 `24e69c2c756aa6ae467ea061c71e1bd473d3a4636db88bbb334abc3d7ac1a644`；协调器完整离线精确依赖验证已通过。归档提交 `b6d111966715abe2e4d4af8998453bb2fa948d2d` 仅在本地 `solution/00000002617`，未 push，也绝不据此创建第三个上游解答 PR。
+- 协调器修复（安全处理 GitHub GET 截断、离线精确依赖模式、向包内 reproducer 显式传入 `--repo`）及证据更正已本地提交为 `b8c8ecfc2dbadbfb59a946df3e9fb3ea52dd141e`，测试 `113` 个，`110` 个通过、`3` 个 Windows symlink 权限跳过。
+- 2026-09-17 曾对预期的用户 fork 做一次非 force push：Git `remote-https` 在超过三分钟没有握手/进度后被终止；随后 `git ls-remote` 证实该 fork 分支不存在，故没有远端写入。**不得自动重试 push 或进行其他外部写入**；保留本地提交，只有在后续重新核验传输条件后才可尝试一次新的非 force 操作。
+- #405 的 2026-09-17独立只读审计已降级为高风险 research-only：题面术语/量词未定义，既有独立审稿说法存在证据链冲突；不进入投稿队列。
