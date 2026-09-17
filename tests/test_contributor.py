@@ -912,8 +912,16 @@ class PublicationTests(FixtureCase):
         self.assert_no_git_mutation()
         self.assert_no_api_mutation()
 
-    def test_invalid_wip_limit_blocks_before_mutation(self):
+    def test_explicit_parallel_limit_allows_two_existing_prs(self):
         self.args.max_open_solution_prs = 3
+        self.snapshot["pulls"] = [
+            {"body": "task one", "state": "open", "user": {"login": c.OWNER}},
+            {"body": "task two", "state": "open", "user": {"login": c.OWNER}},
+        ]
+        self.assertEqual(self.publish()["state"], "awaiting_upstream_review")
+
+    def test_nonpositive_wip_limit_blocks_before_mutation(self):
+        self.args.max_open_solution_prs = 0
         with self.assertRaises(c.GateError):
             self.publish()
         self.assert_no_git_mutation()

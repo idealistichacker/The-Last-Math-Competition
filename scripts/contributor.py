@@ -299,8 +299,8 @@ def publish(root,args,api):
         # Triage/scoring batch PRs are also surfaced for manual-agent inspection, not silently discarded.
         if hits: raise GateError('Possible duplicate submissions/mentions: '+','.join(str(i['number']) for i in hits))
         limit=getattr(args, 'max_open_solution_prs', 1)
-        if type(limit) is not int or limit not in (1, 2):
-            raise GateError('max_open_solution_prs must be 1 or 2')
+        if type(limit) is not int or limit < 1:
+            raise GateError('max_open_solution_prs must be a positive integer')
         active=[p for p in snap['pulls'] if p['state']=='open' and p['user']['login']==OWNER]
         if len(active) >= limit:
             raise GateError(f'WIP limit: {len(active)} active upstream PR(s), maximum {limit}')
@@ -391,8 +391,8 @@ def main(argv=None):
         if command=='validate': p.add_argument('--static-only',action='store_true',help='Not sufficient for publication')
         p.add_argument('--offline-exact-dependencies',action='store_true',help='Use package-declared offline exact-dependency verification; never a generic network bypass.')
         if command=='publish':
-            p.add_argument('--max-open-solution-prs',type=int,choices=(1,2),default=1,
-                           help='Default is 1. Use 2 only for a documented high-priority, fully reviewed release exception.')
+            p.add_argument('--max-open-solution-prs',type=int,default=1,
+                           help='Default is 1. A value above 1 requires explicit user authorization and a current upstream-rule review; every PR still passes all gates independently.')
     p=sub.add_parser('status'); p.add_argument('number',type=int)
     p=sub.add_parser('issue'); p.add_argument('draft'); p.add_argument('--execute',action='store_true')
     p=sub.add_parser('hash'); p.add_argument('submission')

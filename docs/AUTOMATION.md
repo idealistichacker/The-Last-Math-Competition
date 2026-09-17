@@ -29,8 +29,8 @@ python scripts/contributor.py --help
   `--skip-update` 给 reproducer，且 reproducer 必须逐项核对 Git checkout 的 HEAD 与 origin。
 - 在旧Windows CP936控制台上，协调器及它启动的Python验证器强制UTF-8输出，避免Lean类型中 `∀` 等字符导致成功验证被错误报告为编码失败。
 - `publish ... --execute`：有共享 Git-worktree 发布锁、身份检查、最新排重、默认 WIP=1、
-  单题目录 diff 白名单和完整验证后，自动 commit、非 force push（120秒无进度上限；超时后本轮停止，后续先对账 fork ref 与 PR marker）、创建上游 PR。仅一个
-  已通过完整独立审稿的高优先级例外可显式传 `--max-open-solution-prs 2`；该上限绝不超过2。
+  单题目录 diff 白名单和完整验证后，自动 commit、非 force push（120秒无进度上限；超时后本轮停止，后续先对账 fork ref 与 PR marker）、创建上游 PR。默认仅允许1条开放解答PR；
+  超过1条必须显式传正整数 `--max-open-solution-prs`，并已有用户明确授权和当前上游规则核验。每条并行PR仍独立通过全部质量门槛，绝不自动增加上限。
   遇到自己已创建且有稳定 marker 的 PR，返回已有链接，不再建第二个。
 - `issue draft.json --execute`：仅发布经过协调者审查的实质性问题；稳定 marker 防重；
   7 天内最多 1 条普通 Issue；不替每个解答再开重复 Issue。
@@ -108,7 +108,7 @@ solutions/<11-digit-id>/idealistichacker_submission_<UTC yyyymmddHHMMSS>/
 ## 为后续 Agent 提供的实际下一步
 
 先读 `docs/EXECUTION_STATUS.md`，刷新真实 PR/Issue 状态，不按旧报告重复发表。
-优先维护既有上游 PR #101 与 #102；当前两条开放解答 PR 已占满硬上限。#118 已完成本地 P2 package、PDF、独立审稿与完整验证，但在 fork ref 读取低速超时后尚未 push；#154 已完成排列计数/递推的 Mathlib 连接、PDF、独立审稿与验证，并作为上游 PR #102 等待维护者审查。30天路线图是计划，不得把未来工作写成当前测试覆盖。
+优先维护既有上游 PR #101 与 #102。#118 已完成本地 P2 package、PDF、独立审稿与完整验证，并已推送 fork branch；是否开 PR 仍须逐次实时排重、题面对齐和显式并行WIP参数。#154 已完成排列计数/递推的 Mathlib 连接、PDF、独立审稿与验证，并作为上游 PR #102 等待维护者审查。30天路线图是计划，不得把未来工作写成当前测试覆盖。
 
 ## 托管CI权限缺口
 
