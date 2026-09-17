@@ -29,7 +29,7 @@ python scripts/contributor.py --help
   `--skip-update` 给 reproducer，且 reproducer 必须逐项核对 Git checkout 的 HEAD 与 origin。
 - 在旧Windows CP936控制台上，协调器及它启动的Python验证器强制UTF-8输出，避免Lean类型中 `∀` 等字符导致成功验证被错误报告为编码失败。
 - `publish ... --execute`：有共享 Git-worktree 发布锁、身份检查、最新排重、默认 WIP=1、
-  单题目录 diff 白名单和完整验证后，自动 commit、非 force push、创建上游 PR。仅一个
+  单题目录 diff 白名单和完整验证后，自动 commit、非 force push（120秒无进度上限；超时后本轮停止，后续先对账 fork ref 与 PR marker）、创建上游 PR。仅一个
   已通过完整独立审稿的高优先级例外可显式传 `--max-open-solution-prs 2`；该上限绝不超过2。
   遇到自己已创建且有稳定 marker 的 PR，返回已有链接，不再建第二个。
 - `issue draft.json --execute`：仅发布经过协调者审查的实质性问题；稳定 marker 防重；
@@ -96,7 +96,7 @@ solutions/<11-digit-id>/idealistichacker_submission_<UTC yyyymmddHHMMSS>/
 
 - Git helper-selector 在非交互 Python 中可能等待 UI。本工具对单次命令明确指定
   `credential.helper=manager`，不更改全局配置，不弹登录窗口。
-- 网络 GET 失败可以在下轮重新读取；POST 超时先按 marker 查询远端真实结果，不能盲重发。
+- 网络 GET 失败可以在下轮重新读取；POST 超时先按 marker 查询远端真实结果，不能盲重发。Git push 超时同样不在本轮重试；后续先读取 fork 分支 ref 与 PR marker 对账。
 - `.git/tlmc-publish.lock` 存在：先读取 PID，再确认该 PID/命令/开始时间是否本任务进程。
   活进程不能删锁；确认进程终止才可删除这一个锁文件。锁不是进程仍运行的证据。
 - `source hash`、review hash、PDF hash 改变：重新审核，不手改期望值绕过失败。

@@ -741,6 +741,18 @@ class IdentityTests(OfflineCase):
                 c.identity(api)
 
 
+class GitInvocationTests(OfflineCase):
+    def test_git_forwards_explicit_timeout_to_noninteractive_runner(self):
+        runner = self.patch(c, "run", return_value="ok")
+        root = Path("C:/synthetic/tlmc")
+        self.assertEqual(c.git(root, "push", "-u", "origin", "solution/00000000001",
+                               timeout=c.PUSH_TIMEOUT_SECONDS), "ok")
+        runner.assert_called_once_with(
+            ["git", "-c", "credential.helper=", "-c", "credential.helper=manager",
+             "push", "-u", "origin", "solution/00000000001"],
+            root, timeout=c.PUSH_TIMEOUT_SECONDS)
+
+
 class ScopeTests(FixtureCase):
     def test_scoped_tracked_dirty_untracked_files_pass(self):
         self.git.side_effect = lambda root, *args: RELATIVE + "/main.tex"
@@ -814,7 +826,7 @@ class PublicationTests(FixtureCase):
             return {"number": 101, "html_url": "https://github.com/example/mock/pull/101"}
         raise AssertionError(f"Unexpected mocked API call: {route!r} {method!r}")
 
-    def fake_git(self, root, *args):
+    def fake_git(self, root, *args, **kwargs):
         if args == ("rev-parse", "--git-common-dir"):
             return str(self.common)
         if args == ("remote", "get-url", "origin"):
@@ -938,8 +950,9 @@ class PublicationTests(FixtureCase):
 
     def test_mocked_success_pushes_fork_nonforce_and_requests_review(self):
         self.assertEqual(self.publish()["state"], "awaiting_upstream_review")
-        pushes = [call.args[1:] for call in self.git.call_args_list if call.args[1] == "push"]
-        self.assertEqual(pushes, [("push", "-u", "origin", f"solution/{CID}")])
+        push_calls = [call for call in self.git.call_args_list if call.args[1] == "push"]
+        self.assertEqual([call.args[1:] for call in push_calls], [("push", "-u", "origin", f"solution/{CID}")])
+        self.assertEqual(push_calls[0].kwargs, {"timeout": c.PUSH_TIMEOUT_SECONDS})
         posts = [call for call in self.api.request.call_args_list if len(call.args) > 1 and call.args[1] == "POST"]
         self.assertEqual(len(posts), 1)
         self.assertEqual(posts[0].args[2]["head"], f"{c.OWNER}:solution/{CID}")
@@ -954,6 +967,20 @@ class PublicationTests(FixtureCase):
         with self.assertRaises(c.GateError):
             self.publish()
         self.assert_no_api_mutation()
+
+    def test_push_timeout_releases_lock_without_posting_pr(self):
+        real_fake_git = self.fake_git
+        def timeout_on_push(root, *args, **kwargs):
+            if args[0] == "push":
+                self.assertEqual(kwargs, {"timeout": c.PUSH_TIMEOUT_SECONDS})
+                raise subprocess.TimeoutExpired(args, c.PUSH_TIMEOUT_SECONDS)
+            return real_fake_git(root, *args, **kwargs)
+        self.git.side_effect = timeout_on_push
+        with self.assertRaises(subprocess.TimeoutExpired):
+            self.publish()
+        posts = [call for call in self.api.request.call_args_list if len(call.args) > 1 and call.args[1] == "POST"]
+        self.assertEqual(posts, [])
+        self.assertFalse((self.common / "tlmc-publish.lock").exists())
 
     def test_post_timeout_is_not_blindly_retried(self):
         real_fake_request = self.fake_request

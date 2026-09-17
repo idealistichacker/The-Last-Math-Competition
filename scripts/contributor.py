@@ -21,6 +21,7 @@ UPSTREAM = 'The-Last-Math-Competition/The-Last-Math-Competition'
 FORK = 'idealistichacker/The-Last-Math-Competition'
 OWNER = 'idealistichacker'
 ID_RE = re.compile(r'(?<!\d)[0-9]{11}(?!\d)')
+PUSH_TIMEOUT_SECONDS = 120
 
 class GateError(RuntimeError):
     pass
@@ -38,8 +39,8 @@ def run(args, cwd, timeout=300):
         raise GateError(f'Command failed ({result.returncode}): {args[0]}\n{result.stdout[-6000:]}\n{result.stderr[-6000:]}')
     return result.stdout.strip()
 
-def git(root, *args):
-    return run(['git', '-c', 'credential.helper=', '-c', 'credential.helper=manager', *args], root)
+def git(root, *args, timeout=300):
+    return run(['git', '-c', 'credential.helper=', '-c', 'credential.helper=manager', *args], root, timeout=timeout)
 
 def save(path, value):
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -323,8 +324,8 @@ def publish(root,args,api):
             git(root,'diff','--cached','--check')
             git(root,'commit','-m',f'Disprove conjecture {cid}' if load(path/'submission.json')['verdict']=='disproved' else f'Prove conjecture {cid}')
         if git(root,'status','--porcelain'): raise GateError('Working tree not clean after scoped commit')
-        # Push is never forced. A failed network write is reconciled on the next run.
-        git(root,'push','-u','origin',branch)
+        # Push is never forced. For these small packages, fail closed after a bounded no-progress interval; never retry this run.
+        git(root,'push','-u','origin',branch,timeout=PUSH_TIMEOUT_SECONDS)
         snap=refresh(root,api,deep=True)
         if duplicate_items(snap['items']+snap['pulls'],cid): raise GateError('New duplicate appeared before PR creation')
         m=load(path/'submission.json')
