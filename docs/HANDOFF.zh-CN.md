@@ -32,9 +32,9 @@
 
 ## 2026-10-08 晚间 #7717 实现更新
 
-已在固定 Mathlib `0df444a360eaa60ab8c11dca51a86af692955474` 的真实短路径工作树 `D:\L8M` 解决 Windows 深层输出路径问题；关键图论、Laplacian、Rayleigh 与 Spectrum 模块已成功物化。`.local/research/7717/MathlibGraphBridge.lean` 与 `reproduce_mathlib.py` 已实际通过 Lean 4.33.1：当前只广告通用图族的连通、每点度数4、Laplacian 消灭常数，以及同一偶数周期顶点类型上的图连通与 Laplacian 消灭常数证书、`±1` cut 非零和坐标平方和。独立只读复核对首轮八个定理最终判定 PASS，并建议后续采用 cut/Rayleigh 路线而非 Fourier 精确谱。
+已在固定 Mathlib `0df444a360eaa60ab8c11dca51a86af692955474` 的真实短路径工作树 `D:\L9M` 解决 Windows 深层输出路径问题；关键图论、Laplacian、Rayleigh 与 Spectrum 模块已成功物化。`.local/research/7717/MathlibGraphBridge.lean` 与 `reproduce_mathlib.py` 已实际通过 Lean 4.33.1：当前只广告通用图族的连通、每点度数4、Laplacian 消灭常数，以及同一偶数周期顶点类型上的图连通与 Laplacian 消灭常数证书、`±1` cut 非零和坐标平方和。独立只读复核对首轮八个定理最终判定 PASS，并建议后续采用 cut/Rayleigh 路线而非 Fourier 精确谱。
 
-cut 总和、kernel 正交性、有序邻接能量 `16n`、Laplacian 能量 `8n`、坐标及 bundled Euclidean 商 `8/n` 和其任意小性均已证明并经独立复核；还完成了 `(ker L)ᗮ` 上的对称限制、零 eigenspace 排除和 restricted-cut certificate。下一步严格限制为：补出有限维变分原理的下界条件并由此取得正的非零 eigenvalue `mu ≤ 8/n`；在该 theorem 之前不得称完成谱隙反例。四边形胞腔与任意有限覆盖是否属于题面 quotient 量词仍未解决，故不得创建 submission、Issue 或 PR。`D:\L8M` 只是本地研究缓存，不是最终独立投稿环境。
+cut 总和、kernel 正交性、有序邻接能量 `16n`、Laplacian 能量 `8n`、坐标及 bundled Euclidean 商 `8/n` 和其任意小性均已证明并经独立复核；还完成了 `(ker L)ᗮ` 上的对称限制、零 eigenspace 排除和 restricted-cut certificate。有限维变分、正性和零 eigenspace 排除现已完成：原组合 Laplacian 存在任意小的正非零 eigenvalue，且独立复现/审稿通过。下一步严格限制为：把该结论与题面的 `lambda_1` 定义对齐，并补全方格胞腔 `E=4` 与 finite-index quotient 量词审查；在这些步骤前不得称完成题面反例。故不得创建 submission、Issue 或 PR。`D:\L9M` 是本地研究 build，不是最终独立投稿环境。
 
 ## 节省上下文的阅读顺序
 
