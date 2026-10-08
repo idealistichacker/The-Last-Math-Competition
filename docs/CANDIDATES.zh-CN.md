@@ -102,4 +102,4 @@ Int上的二次多项式系数1,-2,2；最高次系数非零；递归迭代；�
 
 ### 2026-10-08 晚间 #7717 Mathlib 实现进展
 
-- **#7717（P1 implementation / research-only）**：固定 Mathlib 短路径构建已打通；`MathlibGraphBridge.lean` 实际编译证明方格环面图连通、4-正则、Laplacian 消灭常数，并把二值 cut 放到同一偶数周期图的顶点类型上，证明其非零、逐点平方为1、坐标平方和等于顶点数。独立复核确认二值 cut 的目标 Rayleigh 商 `8/n` 比 Fourier 精确谱更适合 Lean。cut mean-zero 与完整实 Laplacian kernel 正交性已编译并经独立复核；尚缺能量 `8n`、bundled Rayleigh-to-eigenvalue、四边形胞腔和 quotient 量词对齐；不得制作投稿包或发布。
+- **#7717（P1 implementation / research-only）**：固定 Mathlib 短路径构建已打通；`MathlibGraphBridge.lean` 实际编译证明方格环面图连通、4-正则、Laplacian 消灭常数，并把二值 cut 放到同一偶数周期图的顶点类型上，证明其非零、逐点平方为1、坐标平方和等于顶点数。独立复核确认二值 cut 的目标 Rayleigh 商 `8/n` 比 Fourier 精确谱更适合 Lean。cut mean-zero、完整实 Laplacian kernel 正交性、能量 `8n`、bundled quotient `8/n` 及其任意小性、kernel 正交补限制准备均已编译并经独立复核；尚缺有限维变分得到正非零 eigenvalue、`lambda_1` 对齐、四边形胞腔和 quotient 量词对齐；不得制作投稿包或发布。
