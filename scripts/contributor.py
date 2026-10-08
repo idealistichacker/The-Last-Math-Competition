@@ -22,6 +22,7 @@ FORK = 'idealistichacker/The-Last-Math-Competition'
 OWNER = 'idealistichacker'
 ID_RE = re.compile(r'(?<!\d)[0-9]{11}(?!\d)')
 PUSH_TIMEOUT_SECONDS = 120
+GITHUB_PAGE_SIZE = 10
 
 class GateError(RuntimeError):
     pass
@@ -91,13 +92,16 @@ class GitHub:
                 if attempt + 1 == attempts:
                     raise GateError(f'GitHub GET {route.split("?")[0]} returned an incomplete response twice; no partial snapshot saved.') from None
     def pages(self,route):
+        # Smaller pages prevent a single large GitHub JSON response from becoming a
+        # truncated-response failure on the Windows/TLS stack. Completeness is still
+        # enforced by the tail/sentinel page and the fixed 100-page cap.
         result=[]
         for page in range(1,101):
             sep='&' if '?' in route else '?'
-            batch=self.request(f'{route}{sep}per_page=100&page={page}')
+            batch=self.request(f'{route}{sep}per_page={GITHUB_PAGE_SIZE}&page={page}')
             if not isinstance(batch,list): raise GateError('Expected GitHub list response')
             result+=batch
-            if len(batch)<100: return result
+            if len(batch)<GITHUB_PAGE_SIZE: return result
         raise GateError('Pagination cap reached; cannot establish a complete duplicate snapshot')
 
 def identity(api):

@@ -176,18 +176,18 @@ class PaginationTests(OfflineCase):
     def test_empty_first_page_stops(self):
         self.request.return_value = []
         self.assertEqual(self.api.pages("/items"), [])
-        self.request.assert_called_once_with("/items?per_page=100&page=1")
+        self.request.assert_called_once_with(f"/items?per_page={c.GITHUB_PAGE_SIZE}&page=1")
 
     def test_full_page_tail_and_existing_query(self):
-        first, tail = list(range(100)), [100, 101]
+        first, tail = list(range(c.GITHUB_PAGE_SIZE)), [c.GITHUB_PAGE_SIZE, c.GITHUB_PAGE_SIZE + 1]
         self.request.side_effect = [first, tail]
         self.assertEqual(self.api.pages("/items?state=all"), first + tail)
-        self.assertEqual(self.request.call_args_list, [mock.call("/items?state=all&per_page=100&page=1"),
-                                                     mock.call("/items?state=all&per_page=100&page=2")])
+        self.assertEqual(self.request.call_args_list, [mock.call(f"/items?state=all&per_page={c.GITHUB_PAGE_SIZE}&page=1"),
+                                                     mock.call(f"/items?state=all&per_page={c.GITHUB_PAGE_SIZE}&page=2")])
 
     def test_exact_multiple_requires_empty_sentinel_page(self):
-        self.request.side_effect = [list(range(100)), []]
-        self.assertEqual(len(self.api.pages("/items")), 100)
+        self.request.side_effect = [list(range(c.GITHUB_PAGE_SIZE)), []]
+        self.assertEqual(len(self.api.pages("/items")), c.GITHUB_PAGE_SIZE)
         self.assertEqual(self.request.call_count, 2)
 
     def test_non_array_responses_fail_closed(self):
@@ -197,13 +197,13 @@ class PaginationTests(OfflineCase):
                 self.api.pages("/items")
 
     def test_later_page_error_cannot_return_partial_success(self):
-        self.request.side_effect = [list(range(100)), c.GateError("rate limited")]
+        self.request.side_effect = [list(range(c.GITHUB_PAGE_SIZE)), c.GateError("rate limited")]
         with self.assertRaises(c.GateError):
             self.api.pages("/items")
         self.assertEqual(self.request.call_count, 2)
 
     def test_cap_reached_is_an_error_not_truncated_success(self):
-        self.request.return_value = list(range(100))
+        self.request.return_value = list(range(c.GITHUB_PAGE_SIZE))
         with self.assertRaises(c.GateError):
             self.api.pages("/items")
         self.assertEqual(self.request.call_count, 100)

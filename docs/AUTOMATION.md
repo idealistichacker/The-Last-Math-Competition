@@ -21,7 +21,7 @@ python scripts/contributor.py --help
   **不是全文数学相似度搜索，也不保证发现从未公开的研究。** inline review、外部论文和
   不带题号的相关工作仍要由 Scout 检查；不能把未命中当作原创证明。
   为处理 Windows/TLS 偶发的大响应截断，协调器为**GET**请求设置 `Connection: close`，并仅在
-  Python 明确报告 `IncompleteRead` 时重试一次；HTTP错误与所有POST/PUT仍不重试，外部写入照旧先对账。
+  Python 明确报告 `IncompleteRead` 时重试一次；列表分页固定为每页10项，避免单个大JSON响应截断，同时以尾页/空页和100页上限保证完整性。HTTP错误与所有POST/PUT仍不重试，外部写入照旧先对账。
 - `hash`：计算被审材料的内容 SHA-256；排除构建缓存和顶层评审记录自身；文本CRLF统一为LF，PDF/二进制按原始字节，支持Windows/Linux复现。
 - `validate`：检查完整材料、题面版本、独立评审版本；真正运行 Python、Lean、axiom audit、
   Tectonic 重编译，并比较 PDF 字节。`--static-only` 仅做静态预检，**不够发表**。默认运行包的在线依赖更新；
