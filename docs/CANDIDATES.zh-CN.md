@@ -99,3 +99,7 @@ Int上的二次多项式系数1,-2,2；最高次系数非零；递归迭代；�
 - **#7717（P1 proof-design）**：当前精确 Search 未命中同题 PR。`C_n square C_n` 的数学反例与有限循环格 Lean bridge可复现，已形式化四方向 adjacency 覆盖与任意大周期；仍缺谱隙/Rayleigh/Fourier和铺砌 quotient bridge，不制作 package。
 - **#6685（高价值 research-only）**：除严格空球/star skeleton 外，五站点全部十对 strict-bisector witnesses 已由 Lean 验证；仍缺真实二维 Voronoi facet 引理及关键题面定义，不制作 package。
 - **重复排除补充**：#2051、#7662以及此前 P1 扫描中的 #3490/#1215/#4091/#6672/#8544/#8549/#9114 等均已发现关闭同题 PR，不再投入正式投稿工作。
+
+### 2026-10-08 晚间 #7717 Mathlib 实现进展
+
+- **#7717（P1 implementation / research-only）**：固定 Mathlib 短路径构建已打通；`MathlibGraphBridge.lean` 实际编译证明方格环面图连通、4-正则、Laplacian 消灭常数，并把二值 cut 放到同一偶数周期图的顶点类型上，证明其非零、逐点平方为1、坐标平方和等于顶点数。独立复核确认二值 cut 的目标 Rayleigh 商 `8/n` 比 Fourier 精确谱更适合 Lean。尚缺 cut mean-zero、能量 `8n`、Rayleigh-to-eigenvalue、四边形胞腔和 quotient 量词对齐；不得制作投稿包或发布。
