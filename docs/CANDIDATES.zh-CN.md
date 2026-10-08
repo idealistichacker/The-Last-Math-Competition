@@ -87,3 +87,9 @@ Int上的二次多项式系数1,-2,2；最高次系数非零；递归迭代；�
 `IncidenceAlgebra ℚ (Fin 2)` 上以实际 `Ideal.jacobson` 证明根非底，并经独立复现与审稿。
 它可进入**本地P1包装**，公开材料必须固定 `ℚ` 与两点链，不能泛称所有系数环或未定义的半单性。
 #101/#102 开放时不得开第三个PR。
+
+### 2026-10-08 新候选研究结论
+
+- **#7717（P1 proof-design）**：`C_n square C_n` 的有限周期方格铺砌商图固定为4-正则，谱隙随 `n` 增大趋零；当前精确 ID Search 未命中。数学方向与有限循环格 Lean bridge 已有离线复现，但缺 Fourier/谱论与 quotient bridge，暂不制作 submission。
+- **#6685（高价值 research-only）**：在零权 Voronoi/facet-adjacency 的固定标准读法下，五个整坐标站点给出 `K_5`；十对 strict-bisector arithmetic certificates 已通过 Lean。题面没有定义 adjacency/degenerate weights/dual，且真实二维 facet 几何桥未形式化，暂不投稿。
+- **重复排除**：#2051、#1215、#1227、#1213、#3490、#3481、#4091、#6672、#8544、#8549、#9114 等均已通过2026-10-08精确 ID Search发现关闭同题 PR；不重复制作解答。

@@ -1,6 +1,6 @@
 # 执行状态：自动贡献计划进行中（`tlmc` heartbeat 已暂停）
 
-更新时间：2026-09-17（Asia/Shanghai；本轮状态核对完成）。
+更新时间：2026-10-08（Asia/Shanghai；已重新核验上游合并状态并继续本地研究）。
 
 ## 当前控制状态
 
@@ -111,3 +111,13 @@
 - `solution/00000002617` 已普通非 force push 到用户 fork，远端 ref 回读为 `b6d111966715abe2e4d4af8998453bb2fa948d2d`；未创建 PR。
 - #118 已完成最终包：题面 blob `697131a7b8dc0a62c539018c7d22612df1e7909a`、最终内容哈希 `0d689c61fad8da0283ca8c7deef76d126beb318fc920d47e32237b52a743c070`、PDF SHA-256 `c8104ff8146c53b81bfaf2f3cffd53970ecc1cd8f5dc8e0d8bdb7dbbeefd8062`、独立 review、Lean 4.33.1/axiom audit、cached-only PDF 重建和协调器完整 validate 都通过；fork branch 已普通 non-force 更新至 `8a635b0c74a3a95777d92c4bf8cad467ddc56d24`，上游 PR #103 的正文也已安全更新并回读。
 - #5397 已新增严格限定的离散环面研究材料于 `.local/research/5397/`，离线 Lean 代数 bridge 与数学证明通过；题面仍未定义离散/连续时间，故维持 research-only。
+
+## 2026-10-08 继续解题：当前上游与新研究线
+
+- 通过协调器只读 `status` 实时核验：上游 PR #101、#102、#103 均为 closed 且 `merged: true`。这证明过去三份贡献已被上游合并，但不推导“最佳贡献者”、奖励、排名或后续题目必然接受。
+- 当前远端 `upstream/main` ref 为 `45a97edf95fb8adc2a2a02412753b109f728d662`；本地以一次 filtered shallow fetch 验证并更新了 `refs/remotes/upstream/main`。大范围 `refresh`/`refresh --deep` 在当前网络环境仍会长期无响应或发生截断，已被精确终止且不写入半快照；发布前不能把旧完整快照冒充为当前排重。
+- 为降低单页截断，协调器分页已由每页100项改为每页10项，并在116项测试中通过（113通过、3项Windows symlink权限跳过）；但完整深度索引的总请求耗时仍是未解决的发布前阻断。
+- `00000002617` 已有关闭且已合并的同题 PR #306；包数学仍可复现，但不得以该题重复投稿。`00000003490`、`00000001215`、`00000001213`、`00000001227`、`00000003481`、`00000009114`、`00000002051`、`00000008544`、`00000008549`、`00000007662` 均在2026-10-08精确 GitHub Search中命中关闭同题 PR，排除为新投稿对象。
+- `00000007717` 当前精确题号 Search 未命中。研究目录 `.local/research/7717/` 已给出 `C_n square C_n` 有固定 `D=4,E=4` 而组合 Laplacian 谱隙趋零的严格数学方向；本地 Lean 4.33.1 已形式化有限循环坐标、平移、邻接和任意大周期，reproducer/axiom audit通过。仍缺真正的 Fourier/谱隙与“周期铺砌 quotient”形式化，故仅为 P1 proof-design，不是投稿包。
+- `00000006685` 当前精确题号 Search 未命中。`.local/research/6685/` 与 `.local/research/6685-followup/` 已在零权 Voronoi、facet-adjacency 的明确定义下构造五站点 `K_5` 方向；Lean 已通过严格空球、star skeleton及全部十对 strict-bisector arithmetic witnesses。仍缺真实 `R^3` 相对开二维 facet 引理与题面术语澄清，故仍是高价值 research-only，不是投稿包。
+- `00000000477` 仍因 promotion/量词/poset 范围未定义而停留研究状态；`00000000405` 与 `00000005397` 继续因题面对齐风险不进入发布队列。
