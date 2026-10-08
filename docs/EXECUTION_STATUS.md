@@ -121,3 +121,10 @@
 - `00000007717` 当前精确题号 Search 未命中。研究目录 `.local/research/7717/` 已给出 `C_n square C_n` 有固定 `D=4,E=4` 而组合 Laplacian 谱隙趋零的严格数学方向；本地 Lean 4.33.1 已形式化有限循环坐标、平移、邻接和任意大周期，reproducer/axiom audit通过。仍缺真正的 Fourier/谱隙与“周期铺砌 quotient”形式化，故仅为 P1 proof-design，不是投稿包。
 - `00000006685` 当前精确题号 Search 未命中。`.local/research/6685/` 与 `.local/research/6685-followup/` 已在零权 Voronoi、facet-adjacency 的明确定义下构造五站点 `K_5` 方向；Lean 已通过严格空球、star skeleton及全部十对 strict-bisector arithmetic witnesses。仍缺真实 `R^3` 相对开二维 facet 引理与题面术语澄清，故仍是高价值 research-only，不是投稿包。
 - `00000000477` 仍因 promotion/量词/poset 范围未定义而停留研究状态；`00000000405` 与 `00000005397` 继续因题面对齐风险不进入发布队列。
+
+## 2026-10-08 #7717/#6685 形式化研究进展
+
+- `00000007717` 的当前 GitHub Content/Search 精确核验未命中同题 PR；在当前 upstream commit `45a97edf95fb8adc2a2a02412753b109f728d662` 上已建立本地分支 `solution/00000007717`。研究目录 `.local/research/7717/` 已通过离线复现：有限周期 quotient 顶点模型 `Fin n × Fin n`、循环平移、四方向 adjacency、任意大周期，以及“任一 adjacency 被四方向覆盖”的 Lean bridge 和公理审计。数学方向为 `C_n square C_n` 固定 `D=4,E=4` 而 `lambda_1 → 0`。但 Fourier/Rayleigh 谱隙、有限图 Laplacian 与铺砌 quotient bridge 尚未完整形式化，且题面没有明确 quotient/Laplacian 规范；因此为 P1 proof-design，不是投稿包。
+- `00000006685` 的精确 ID Search 未命中同题 PR。`.local/research/6685/` 现有严格空球与 `K_5` star skeleton 证据；`.local/research/6685-followup/` 又以 Lean 验证了五个站点全部十个无序对的 strict-bisector arithmetic witnesses，并通过 follow-up reproducer/axiom audit。真实 `R^3` 中 strict witness 到相对开二维 Voronoi facet 的几何 bridge、以及题面 adjacency/degenerate weights/dual 定义仍未完成，故保持 research-only。
+- 为升级 #7717，核对了固定 Mathlib 源码的 LapMatrix、CycleGraph、Prod、Rayleigh、Spectrum 与 Hermitian API。依赖 revisions 已一致，但 Windows 下 materialize 缺失 `.olean` 时出现 `.olean.private` / `.olean.server` 长路径 artifact 写入失败。两次 Lake build 和若干直接 module probe 均未产生 tracked package 改动；共享 #2617 cache 不再作为 #7717 正式环境修补对象。
+- 2026-10-08 对 #2617/#3490/#1215/#1213/#1227/#3481/#4091/#6672/#8544/#8549/#9114/#2051/#7662 的 GitHub Search/PR status 均发现关闭同题 PR（其中多个合并），故排除重复投稿。

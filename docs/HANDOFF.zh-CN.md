@@ -23,6 +23,13 @@
 
 #2617 已发现关闭且合并的同题 PR #306，禁止重复。#7717 与 #6685 是当前研究方向：均有可复现的 Lean 局部证据，但尚缺完整谱论/几何形式化与题面对齐，不得包装为正式投稿。
 
+
+## 2026-10-08 研究继续点
+
+#7717 当前精确 ID/语义 Search 未命中同题 PR，已在 `solution/00000007717` 建立最新 upstream 基线分支。`.local/research/7717/` 的有限周期方格商 Lean bridge和离线复现均通过，但仍缺 Mathlib 谱论/Rayleigh与铺砌 quotient的完整 bridge；不可创建正式 package。#6685 的 local direct-facet follow-up 已通过十对 strict-bisector Lean arithmetic certificates，但真实二维 Voronoi facet 和题面定义仍是阻断。不要把任一研究文件当作已有提交。
+
+完整 GitHub `refresh`/`refresh --deep` 在当前网络下仍长期无响应或截断；小页分页已改为10项并通过116项测试，但尚未解决总请求耗时。发布前只能在完整 refresh恢复后执行，或采用同等完整、可审计的替代排重；当前精确 Content/Search 查询只能用于候选排除。
+
 ## 节省上下文的阅读顺序
 
 1. 本文件（状态、下一步、禁止重复动作）。

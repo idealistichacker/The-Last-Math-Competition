@@ -93,3 +93,9 @@ Int上的二次多项式系数1,-2,2；最高次系数非零；递归迭代；�
 - **#7717（P1 proof-design）**：`C_n square C_n` 的有限周期方格铺砌商图固定为4-正则，谱隙随 `n` 增大趋零；当前精确 ID Search 未命中。数学方向与有限循环格 Lean bridge 已有离线复现，但缺 Fourier/谱论与 quotient bridge，暂不制作 submission。
 - **#6685（高价值 research-only）**：在零权 Voronoi/facet-adjacency 的固定标准读法下，五个整坐标站点给出 `K_5`；十对 strict-bisector arithmetic certificates 已通过 Lean。题面没有定义 adjacency/degenerate weights/dual，且真实二维 facet 几何桥未形式化，暂不投稿。
 - **重复排除**：#2051、#1215、#1227、#1213、#3490、#3481、#4091、#6672、#8544、#8549、#9114 等均已通过2026-10-08精确 ID Search发现关闭同题 PR；不重复制作解答。
+
+### 2026-10-08 形式化研究更新
+
+- **#7717（P1 proof-design）**：当前精确 Search 未命中同题 PR。`C_n square C_n` 的数学反例与有限循环格 Lean bridge可复现，已形式化四方向 adjacency 覆盖与任意大周期；仍缺谱隙/Rayleigh/Fourier和铺砌 quotient bridge，不制作 package。
+- **#6685（高价值 research-only）**：除严格空球/star skeleton 外，五站点全部十对 strict-bisector witnesses 已由 Lean 验证；仍缺真实二维 Voronoi facet 引理及关键题面定义，不制作 package。
+- **重复排除补充**：#2051、#7662以及此前 P1 扫描中的 #3490/#1215/#4091/#6672/#8544/#8549/#9114 等均已发现关闭同题 PR，不再投入正式投稿工作。
