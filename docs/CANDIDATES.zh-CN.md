@@ -106,4 +106,4 @@ Int上的二次多项式系数1,-2,2；最高次系数非零；递归迭代；�
 
 ### 2026-10-09 #6685 真实 patch 加强
 
-- **#6685（research-only）**：除既有十个 strict-witness 外，所有十个无序 site pair 现均有 Lean 验证的单射二维共同 Voronoi-cell patch；但本地 `PatchAdjacent` 不等于原题 adjacency。仍缺相对开二维 facet/topological cell-complex bridge 和题面术语对齐。已准备独立审阅的澄清 Issue 草稿，最早在 `2026-10-16T01:44:23Z` 后才可重新排重并考虑外发。
+- **#6685（research-only）**：所有十个无序 site pair 现均有 Lean 验证的单射二维共同 Voronoi-cell patch，并合取为本地 `PatchAdjacent` complete graph；独立审稿与 runner 均通过。但 `PatchAdjacent` 不等于原题 adjacency。仍缺相对开二维 facet/topological cell-complex bridge 和题面术语对齐。已准备独立审阅的澄清 Issue 草稿，最早在 `2026-10-16T01:44:23Z` 后才可重新排重并考虑外发。
