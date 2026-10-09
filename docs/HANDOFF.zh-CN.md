@@ -34,7 +34,13 @@
 
 已在固定 Mathlib `0df444a360eaa60ab8c11dca51a86af692955474` 的真实短路径工作树 `D:\L9M` 解决 Windows 深层输出路径问题；关键图论、Laplacian、Rayleigh 与 Spectrum 模块已成功物化。`.local/research/7717/MathlibGraphBridge.lean` 与 `reproduce_mathlib.py` 已实际通过 Lean 4.33.1：当前只广告通用图族的连通、每点度数4、Laplacian 消灭常数，以及同一偶数周期顶点类型上的图连通与 Laplacian 消灭常数证书、`±1` cut 非零和坐标平方和。独立只读复核对首轮八个定理最终判定 PASS，并建议后续采用 cut/Rayleigh 路线而非 Fourier 精确谱。
 
-cut 总和、kernel 正交性、有序邻接能量 `16n`、Laplacian 能量 `8n`、坐标及 bundled Euclidean 商 `8/n` 和其任意小性均已证明并经独立复核；还完成了 `(ker L)ᗮ` 上的对称限制、零 eigenspace 排除和 restricted-cut certificate。有限维变分、正性和零 eigenspace 排除现已完成：原组合 Laplacian 存在任意小的正非零 eigenvalue，且独立复现/审稿通过。本地标准 `lambda_1` 语义已形式化并经独立审稿；局部四边界列表（长度4且所有边在1-skeleton）也已通过独立审稿，但不是完整 cell-complex。下一步严格限制为：取得该语义、无权 Laplacian 与题面术语的一致性审查，并补全非退化方格胞腔 `E=4` 与 finite-index quotient 量词审查；在这些步骤前不得称完成题面反例。故不得创建 submission、Issue 或 PR。`D:\L9M` 是本地研究 build，不是最终独立投稿环境。
+cut 总和、kernel 正交性、有序邻接能量 `16n`、Laplacian 能量 `8n`、坐标及 bundled Euclidean 商 `8/n` 和其任意小性均已证明并经独立复核；还完成了 `(ker L)ᗮ` 上的对称限制、零 eigenspace 排除和 restricted-cut certificate。有限维变分、正性和零 eigenspace 排除现已完成：原组合 Laplacian 存在任意小的正非零 eigenvalue，且独立复现/审稿通过。本地标准 `lambda_1` 语义已形式化并经独立审稿；局部四边界列表（长度4且所有边在1-skeleton）也已通过独立审稿，但不是完整 cell-complex。下一步严格限制为：取得该语义、无权 Laplacian 与题面术语的一致性审查，并补全非退化方格胞腔 `E=4` 与 finite-index quotient 量词审查；在这些步骤前不得称完成题面反例。故不得创建 submission 或 PR。`D:\L9M` 是本地研究 build，不是最终独立投稿环境。
+
+## 2026-10-09 #7717 维护者澄清等待
+
+认证已通过 approved Git helper 检验，协调器已在 `2026-10-09T01:44:23Z` 创建上游 Issue #905，只请求确认 finite-index quotient、无权 Laplacian 和 `E=4` 的术语。回读为 open、0 comments、稳定 marker 正确。该 Issue 不代表解答已提交或被采纳。
+
+在维护者答复前，#7717 禁止创建 solution package/PR，也不得把本地 `lambda_1` 或局部 face data 冒充为题面对齐。若有答复，先逐项记录其是否明确覆盖上述三项，再由独立审稿人复核 statement alignment；若无答复，只可继续本地研究或转向新候选。
 
 ## 节省上下文的阅读顺序
 
