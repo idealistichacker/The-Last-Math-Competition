@@ -135,3 +135,9 @@
 - 在 `2026-10-09T01:44:23Z`（Asia/Shanghai 2026-10-09 09:44）通过协调器创建上游 Issue #905：`Clarify quotient and Laplacian conventions for conjecture 00000007717`。即时精确搜索确认 #7717 的 PR、Issue 均为0条命中，且账户 `idealistichacker` 在此前7日没有 standalone Issue；发布时协调器重新执行身份、重复 marker 与周额度 gate。
 - 只请求澄清 finite-index quotient、无权 combinatorial Laplacian 以及方格胞腔 `E=4` 的约定；Issue 正文明确不声称证明/证伪、没有解答提交。发布回读：open、0 comments、marker 正确。
 - #7717 仍为 research-only：等待维护者答复。不得把 Issue #905 当作组织者认可、题面修订、解答接受或 PR；答复到来前不创建 #7717 solution submission。
+
+## 2026-10-09 #6685 实二维共同-cell patch 研究
+
+- 在固定零权 ordinary Voronoi 读法下，`.local/research/6685-realpatch/` 已用 Lean/Mathlib 为五站点全部十个无序 pair 建立显式、单射的两参数 strict-bisector patch；对 `|s|,|t|<1/4`，每个 patch 的点同时落在该 pair 两个有限-site Voronoi cell 中，且严格优于其余三站点。独立审稿通过 patch 的距离不等式、单射、通用 cell-membership bridge 和十对合取。
+- 本地 `PatchAdjacent` 仅定义为“存在单射的两参数共同-cell patch”，并已对十个 pair 成立；它不是题面未定义的 adjacency graph、相对开 facet、K5 反例或完整 Voronoi cell-complex。
+- 因此 #6685 的算术/实几何局部证据显著增强，但仍缺 patch image 为相对开二维 facet 的拓扑 bridge、完整 power/Voronoi complex、以及题面中 adjacency、degenerate weights、dual 与 regular triangulation 的维护者术语澄清。草稿澄清 Issue 已独立审阅，但 `not_before_utc` 为 `2026-10-16T01:44:23Z`，不得在 #905 后七天窗口内发布。

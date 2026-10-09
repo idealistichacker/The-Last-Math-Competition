@@ -42,6 +42,12 @@ cut 总和、kernel 正交性、有序邻接能量 `16n`、Laplacian 能量 `8n`
 
 在维护者答复前，#7717 禁止创建 solution package/PR，也不得把本地 `lambda_1` 或局部 face data 冒充为题面对齐。若有答复，先逐项记录其是否明确覆盖上述三项，再由独立审稿人复核 statement alignment；若无答复，只可继续本地研究或转向新候选。
 
+## 2026-10-09 #6685 真实 patch 续作
+
+`.local/research/6685-realpatch/` 现在在明确的 ordinary Voronoi cell 定义下，对十个站点 pair 都证明存在单射二参数共同-cell patch；每个参数点同时在两个 cell 中并严格优于其余站点。该本地 `PatchAdjacent` relation 是可审计研究关系，不是原题 adjacency。
+
+不可发布的剩余条件：相对开二维 facet 的拓扑 bridge、完整 cell-complex、以及对题面 adjacency/degenerate weights/dual/regular triangulation 的维护者澄清。#6685 Issue 草稿已审阅，但受单周 standalone Issue 限制，**最早**在 `2026-10-16T01:44:23Z` 后才可重新排重、重审账号/额度并考虑发布。
+
 ## 节省上下文的阅读顺序
 
 1. 本文件（状态、下一步、禁止重复动作）。
