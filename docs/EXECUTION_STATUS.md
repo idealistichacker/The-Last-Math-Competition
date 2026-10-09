@@ -139,5 +139,5 @@
 ## 2026-10-09 #6685 实二维共同-cell patch 研究
 
 - 在固定零权 ordinary Voronoi 读法下，`.local/research/6685-realpatch/` 已用 Lean/Mathlib 为五站点全部十个无序 pair 建立显式、单射的两参数 strict-bisector patch；对 `|s|,|t|<1/4`，每个 patch 的点同时落在该 pair 两个有限-site Voronoi cell 中，且严格优于其余三站点。独立审稿通过 patch 的距离不等式、单射、通用 cell-membership bridge 和十对合取；全套 real-patch runner / axiom audit 已复现通过。O/A patch 已在标准 `R^3` 产品拓扑中证明为 ambient-open 矩形与 bisector plane 的交，因此在该明确本地 plane 定义内相对开，并整体在两 cell 交集内。
-- 本地 `PatchAdjacent` 精确定义为“存在单射的两参数共同-cell patch”，并已对十个 pair 成立；它不是题面未定义的 adjacency graph、相对开 facet、K5 反例或完整 Voronoi cell-complex。
-- 因此 #6685 的算术/实几何局部证据显著增强，但仍缺 patch image 为相对开二维 facet 的拓扑 bridge、完整 power/Voronoi complex、以及题面中 adjacency、degenerate weights、dual 与 regular triangulation 的维护者术语澄清。草稿澄清 Issue 已独立审阅，但 `not_before_utc` 为 `2026-10-16T01:44:23Z`，不得在 #905 后七天窗口内发布。
+- 本地 `PatchAdjacent` 精确定义为“存在单射的两参数共同-cell patch”，并已对十个 pair 成立；随后十个 patch image 都已在标准 `R^3` 产品拓扑下形式化为 ambient-open 矩形与各自 bisector plane 的交，且位于相应两 Voronoi cell 中。它仍不是题面未定义的 adjacency graph、K5 反例或完整 Voronoi cell-complex。
+- 因此 #6685 的算术/实几何局部证据显著增强，但仍缺整个有限-site Voronoi/power cell-complex、对 weights/degeneracy/dual/regular triangulation 的题面对齐，以及维护者术语澄清。草稿澄清 Issue 已独立审阅，但 `not_before_utc` 为 `2026-10-16T01:44:23Z`，不得在 #905 后七天窗口内发布。
