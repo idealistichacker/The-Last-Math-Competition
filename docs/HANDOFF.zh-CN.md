@@ -44,7 +44,7 @@ cut 总和、kernel 正交性、有序邻接能量 `16n`、Laplacian 能量 `8n`
 
 ## 2026-10-09 #6685 真实 patch 续作
 
-`.local/research/6685-realpatch/` 现在在明确的 ordinary Voronoi cell 定义下，对十个站点 pair 都证明存在单射二参数共同-cell patch；每个参数点同时在两个 cell 中并严格优于其余站点。独立审稿和 runner 已通过十对 patch、cell-membership bridge 与 ten-pair `PatchAdjacent` 合取。该本地 `PatchAdjacent` relation 是可审计研究关系，不是原题 adjacency。
+`.local/research/6685-realpatch/` 现在在明确的 ordinary Voronoi cell 定义下，对十个站点 pair 都证明存在单射二参数共同-cell patch；每个参数点同时在两个 cell 中并严格优于其余站点。独立审稿和 runner 已通过十对 patch、cell-membership bridge 与 ten-pair `PatchAdjacent` 合取。O/A patch 的像还被 Lean 精确描述为 bisector 平面内的严格不等式矩形，且整个矩形属于两 cell 交集。该本地 `PatchAdjacent` relation 是可审计研究关系，不是原题 adjacency。
 
 不可发布的剩余条件：相对开二维 facet 的拓扑 bridge、完整 cell-complex、以及对题面 adjacency/degenerate weights/dual/regular triangulation 的维护者澄清。#6685 Issue 草稿已审阅，但受单周 standalone Issue 限制，**最早**在 `2026-10-16T01:44:23Z` 后才可重新排重、重审账号/额度并考虑发布。
 
